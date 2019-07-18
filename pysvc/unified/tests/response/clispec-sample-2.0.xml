@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ArraySyntax SYSTEM "clispec-2.0.dtd">
+<ArraySyntax version="2.0">
+    <!-- "type" can be storwize, svc. -->
+    <ArrayType type="svc">
+        <ArrayVersion type="svc" version="6.3"/>
+    </ArrayType>
+    <Errors>
+        <!-- action="raise_exception" and type="SVC" are removed because XSF does not use it. -->
+        <Error>CMMV</Error>
+        <Error>EFFSG</Error>
+        <Error>EFFST</Error>
+    </Errors>
+    <Commands>
+        <!-- SVC CLI -->
+        <Executable name="svcinfo">
+            <Response type="svc_status"/>
+            <Command name="lscluster" description="Returns a concise list or a detailed view of a cluster. &gt;&gt;- svcinfo -- -- lscluster -- --&gt;&#10;&gt;--">
+                <!-- The response type of "Command" can overwrite the response type of "Executable". -->
+                <Response type="svc_normal"/>
+                <ValueParam name="-filtervalue"/>
+                <FlagParam name="-nohdr"/>
+                <FlagParam name="-bytes"/>
+                <ValueParam name="-delim"/>
+                <FlagParam name="-filtervalue?"/>
+                <ValueParam name="cluster_id_or_name" noName="true"/>
+            </Command>
+        </Executable>
+        <Executable name="svctask">
+            <Response type="svc_status"/>
+            <Command name="mkhost">
+                <ValueParam name="-name"/>
+                <ParamChoice required="true">
+                    <ValueParam name="-hbawwpn"/>
+                    <ValueParam name="-iscsiname"/>
+                </ParamChoice>
+                <ValueParam name="-iogrp"/>
+                <ValueParam name="-mask"/>
+                <FlagParam name="-force"/>
+                <ValueParam name="-type">
+                    <Option>hpux</Option>
+                    <Option>tpgs</Option>
+                    <Option>generic</Option>
+                </ValueParam>
+            </Command>
+        </Executable>
+    </Commands>
+    <Commands implements="for_test2, for_test3">
+        <Executable name="for_test2">
+            <Command name="cmd1">
+                <ParamChoice>
+                    <ValueParam name="--optiontype??"/>
+                    <ValueParam name="--optiontype">
+                        <Option>tryonce</Option>
+                        <Option>fallback</Option>
+                    </ValueParam>
+                    <FlagParam name="-force"/>
+                    <FlagParam name="-noforce"/>
+                </ParamChoice>
+            </Command>
+        </Executable>
+        <Executable name="for_test1">
+            <Response type="default"/>
+            <ValueParam name="-g" description="group"/>
+            <ValueParam name="--force"/>
+        </Executable>
+        <Executable name="for_test3">
+            <Response type="default"/>
+            <ValueParam name="network" noName="true" required="true"/>
+            <ValueParam name="interface" noName="true" required="true"/>
+            <ValueParam name="-g" description="group"/>
+            <FlagParam name="--force"/>
+        </Executable>
+    </Commands>
+    <CompressedCommands compression="zlib" encoding="base64"><![CDATA[eJylkcFuAjEMRO98RZQ72h9YekHlWFU99IrcxIGoibOKnUL/vt0lKlCV1dLNzfGMNU+zaNcpRiDL
+Dwv1/drHI5oi8BZQEURcaf4wnlzSp/2gqZYqMCBQrJeQdheiQfiC3CViVPLZnU5tKeUIQasOMsSV
+1s0vyyuEgs/9sp5fOp9ZJugsBh8vdW1Tg1a05sw2AivA77dhLQoaidZfiW7BsoAU/hP2P+FgvIjA
+zgfkCblMIuMZ72mhA8Kw7QetKD0Nn5ILTrFmdP44G368GLM/HIjmdTIXfRNgd+XsI3Fx99D/LPls
++AKOPwuE]]></CompressedCommands>
+    <CompressedCommands compression="zlib" encoding="base64" implements="svcinfo, svctask"><![CDATA[eJylkcFuAjEMRO98RZQ72h9YekHlWFU99IrcxIGoibOKnUL/vt0lKlCV1dLNzfGMNU+zaNcpRiDL
+Dwv1/drHI5oi8BZQEURcaf4wnlzSp/2gqZYqMCBQrJeQdheiQfiC3CViVPLZnU5tKeUIQasOMsSV
+1s0vyyuEgs/9sp5fOp9ZJugsBh8vdW1Tg1a05sw2AivA77dhLQoaidZfiW7BsoAU/hP2P+FgvIjA
+zgfkCblMIuMZ72mhA8Kw7QetKD0Nn5ILTrFmdP44G368GLM/HIjmdTIXfRNgd+XsI3Fx99D/LPls
++AKOPwuE]]></CompressedCommands>
+</ArraySyntax>

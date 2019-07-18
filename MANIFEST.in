@@ -1,0 +1,2 @@
+include pysvc/unified/xsf-1.0.xml
+recursive-exclude  pysvc/unified/tests *

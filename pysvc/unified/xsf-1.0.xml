@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE ArraySyntax SYSTEM "clispec-2.0.dtd">
+<ArraySyntax version="2.0">
+  <ArrayType type="xsf">
+    <ArrayVersion type="xsf" version="1.0"/>
+  </ArrayType>
+  <Errors>
+    <Error>CMMV</Error>
+    <Error>EFFSG</Error>
+    <Error>EFFST</Error>
+  </Errors>
+  <Commands>
+    <Response type="svc"/>
+    <Executable name="svcinfo">
+      <Command name="lscluster">
+        <FlagParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="cluster" noName="true"/>
+      </Command>
+    </Executable>
+  </Commands>
+</ArraySyntax>

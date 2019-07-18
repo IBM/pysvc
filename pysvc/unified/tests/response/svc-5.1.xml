@@ -1,0 +1,1559 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE ArraySyntax SYSTEM "clispec-2.0.dtd">
+<ArraySyntax version="2.0">
+  <ArrayType type="svc">
+    <ArrayVersion type="svc" version="5.1"/>
+  </ArrayType>
+  <Errors>
+    <Error>CMMV</Error>
+    <Error>EFFSG</Error>
+    <Error>EFFST</Error>
+  </Errors>
+  <Commands>
+    <Response type="svc"/>
+    <Executable name="svctask">
+      <Command name="addhostiogrp" description="The addhostiogrp command enables you to map I/O groups to an existing host object.">
+        <Response type="svc_status"/>
+        <ParamChoice required="true">
+          <ValueParam name="-iogrp"/>
+          <FlagParam name="-iogrpall"/>
+        </ParamChoice>
+        <ValueParam name="host" noName="true" required="true" description="host ID or host name"/>
+      </Command>
+      <Command name="addhostport" description="The addhostport command adds worldwide port names (WWPNs) or iSCSI names  to an existing host object.">
+        <Response type="svc_status"/>
+        <ParamChoice required="true">
+          <ValueParam name="-hbawwpn"/>
+          <ValueParam name="-iscsiname"/>
+        </ParamChoice>
+        <FlagParam name="-force"/>
+        <ValueParam name="host" noName="true" required="true"/>
+      </Command>
+      <Command name="addmdisk" description="The addmdisk command adds one or more managed disks to an existing managed disk group.">
+        <Response type="svc_status"/>
+        <ValueParam name="-mdisk" required="true" description="mdisk_id_list | mdisk_name_list"/>
+        <ValueParam name="-tier" description="generic_ssd | generic_hdd"/>
+        <ValueParam name="mdisk_group" noName="true" required="true"/>
+      </Command>
+      <Command name="addnode" description="You can use the addnode command to add a new (candidate) node to an existing cluster. You can enter this command any time after a cluster has been created. If you are adding a new node to a cluster, you must ensure that the model type of the new node is supported by the SAN Volume Controller software version of the cluster. If the model type is not supported by the cluster software, you must upgrade the cluster to a software version that supports the model type of the new node.">
+        <Response type="svc_status"/>
+        <ValueParam name="-wwnodename"/>
+        <ValueParam name="-iogrp" required="true" description="iogroup_name|iogroup_id"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-panelname"/>
+      </Command>
+      <Command name="addvdiskcopy" description="The addvdiskcopy command adds a copy to an existing VDisk, which changes a nonmirrored VDisk into a mirrored VDisk.    Note: The first syntax diagram depicts the addition of a sequential or striped mode virtual disk. The second syntax diagram depicts the addition of an image mode virtual disk.">
+        <Response type="svc_status"/>
+        <FlagParam name="-fmtdisk"/>
+        <ValueParam name="-syncrate"/>
+        <FlagParam name="-createsync"/>
+        <FlagParam name="-autoexpand"/>
+        <ValueParam name="-grainsize" description="32|64|128|256"/>
+        <ValueParam name="-vtype" description="seq|striped|image"/>
+        <ValueParam name="-mdisk" description="mdisk_id_list|mdisk_name_list"/>
+        <ValueParam name="-rsize" description="disk_size|disk_size_percentage%|auto"/>
+        <FlagParam name="-import"/>
+        <ValueParam name="-mdiskgrp" required="true" description="mdisk_group_id_list|mdisk_group_name_list"/>
+        <ValueParam name="-warning" description="disk_size|disk_size_percentage%"/>
+        <ValueParam name="-unit" description="b|kb|mb|gb|tb|pb"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="applymdisksoftware" description="Use the applymdisksoftware command to upgrade the firmware on a specified managed disk (MDisk). Only solid-state drives (SSDs) can be specified.">
+        <Response type="svc_status"/>
+        <ValueParam name="-file" required="true"/>
+        <ValueParam name="-type" required="true" description="firmware|fpga"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="applysoftware" description="The applysoftware command upgrades the cluster to a new level of software.">
+        <Response type="svc_status"/>
+        <FlagParam name="-abort"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-file"/>
+      </Command>
+      <Command name="cfgportip" description="The cfgportip command assigns an IP address to each node ethernet port for iSCSI I/O.">
+        <Response type="svc_status"/>
+        <ValueParam name="-node" required="true" description="node name or node ID"/>
+        <ParamChoice>
+          <ValueParam name="-ip"/>
+          <ValueParam name="-ip_6"/>
+        </ParamChoice>
+        <ParamChoice>
+          <ValueParam name="-gw"/>
+          <ValueParam name="-gw_6"/>
+        </ParamChoice>
+        <ParamChoice>
+          <ValueParam name="-mask"/>
+          <ValueParam name="-prefix_6"/>
+        </ParamChoice>
+        <FlagParam name="-failover"/>
+        <ValueParam name="port" noName="true" required="true"/>
+      </Command>
+      <Command name="chauthservice" description="The chauthservice command can be used to configure the remote authentication service of the cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="-username"/>
+        <ValueParam name="-enable" description="yes|no"/>
+        <ValueParam name="-sslcert"/>
+        <ValueParam name="-url"/>
+        <FlagParam name="-refresh"/>
+        <ValueParam name="-password"/>
+      </Command>
+      <Command name="chcluster" description="The chcluster command modifies the attributes of an existing cluster. You can enter this command any time after a cluster has been created. All the parameters that are associated with this command are optional. However, you must specify one or more parameters with this command.">
+        <Response type="svc_status"/>
+        <ValueParam name="-gmintradelaysimulation"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-ntpip_6"/>
+        <ValueParam name="-chapsecret"/>
+        <ValueParam name="-invemailinterval"/>
+        <ValueParam name="-ntpip"/>
+        <ValueParam name="-alias"/>
+        <ValueParam name="-gmlinktolerance"/>
+        <ValueParam name="-gminterdelaysimulation"/>
+        <ValueParam name="-iscsiauthmethod" description="none|chap"/>
+        <ValueParam name="-isns"/>
+        <ValueParam name="-relationshipbandwidthlimit"/>
+        <ValueParam name="-isns_6"/>
+        <ValueParam name="-speed"/>
+        <FlagParam name="-nochapsecret"/>
+        <ValueParam name="-icatip"/>
+        <ValueParam name="-icatip_6"/>
+        <ValueParam name="-servicepwd"/>
+      </Command>
+      <Command name="chclusterip" description="The chclusterip command modifies the IP configuration parameters for the cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="-gw"/>
+        <ValueParam name="-serviceip_6"/>
+        <FlagParam name="-noip"/>
+        <ValueParam name="-serviceip"/>
+        <ValueParam name="-prefix_6"/>
+        <ValueParam name="-mask"/>
+        <ValueParam name="-clusterip_6"/>
+        <ValueParam name="-clusterip"/>
+        <ValueParam name="-gw_6"/>
+        <FlagParam name="-noip_6"/>
+        <ValueParam name="-port"/>
+      </Command>
+      <Command name="chcontroller" description="The chcontroller command modifies the attributes of a controller.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-allowquorum" description="yes|no"/>
+        <ValueParam name="controller" noName="true" required="true"/>
+      </Command>
+      <Command name="chcurrentuser" description="The chcurrentuser command changes the attributes of the current user.">
+        <Response type="svc_status"/>
+        <FlagParam name="-nopassword"/>
+        <ValueParam name="-password"/>
+        <ValueParam name="-keyfile"/>
+        <FlagParam name="-nokey"/>
+      </Command>
+      <Command name="chemail" description="The chemail command can be used to set or modify contact information for e-mail event notifications. To modify settings, at least one of the parameters must be specified.">
+        <Response type="svc_status"/>
+        <ValueParam name="-reply"/>
+        <ValueParam name="-contact"/>
+        <ValueParam name="-alternate"/>
+        <ValueParam name="-primary"/>
+        <ValueParam name="-location"/>
+      </Command>
+      <Command name="chemailserver" description="The chemailserver command modifies the parameters of an existing e-mail server object.">
+        <Response type="svc_status"/>
+        <ValueParam name="-ip"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-port"/>
+        <ValueParam name="email_server" noName="true" required="true"/>
+      </Command>
+      <Command name="chemailuser" description="The chemailuser command modifies the settings that are defined for an e-mail recipient.">
+        <Response type="svc_status"/>
+        <ValueParam name="-info" description="on|off"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-address"/>
+        <ValueParam name="-usertype" description="support|local"/>
+        <ValueParam name="-warning" description="on|off"/>
+        <ValueParam name="-inventory" description="on|off"/>
+        <ValueParam name="-error" description="on|off"/>
+        <ValueParam name="user" noName="true" required="true"/>
+      </Command>
+      <Command name="cherrstate" description="The cherrstate command marks an unfixed error as fixed. You can also use it to mark a fixed error as unfixed.">
+        <Response type="svc_status"/>
+        <ValueParam name="-sequencenumber" required="true"/>
+        <FlagParam name="-unfix"/>
+      </Command>
+      <Command name="chfcconsistgrp" description="The chfcconsistgrp command changes the name of a consistency group or marks the group for auto-deletion.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-autodelete" description="on|off"/>
+        <ValueParam name="fc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="chfcmap" description="The chfcmap command modifies attributes of an existing mapping.">
+        <Response type="svc_status"/>
+        <ValueParam name="-consistgrp" description="consist_group_id|consist_group_name"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-autodelete" description="on|off"/>
+        <ValueParam name="-cleanrate"/>
+        <ValueParam name="-copyrate"/>
+        <ValueParam name="fc_map" noName="true" required="true"/>
+      </Command>
+      <Command name="chhost" description="The chhost command changes the name or type of a host object. This does not affect any existing virtual disk-to-host mappings.">
+        <Response type="svc_status"/>
+        <ValueParam name="-type" description="hpux|tpgs|generic"/>
+        <ValueParam name="-mask"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-chapsecret"/>
+        <FlagParam name="-nochapsecret"/>
+        <ValueParam name="host" noName="true" required="true"/>
+      </Command>
+      <Command name="chiogrp" description="The chiogrp command modifies the name of an I/O group, or the amount of memory that is available for Copy Services or VDisk mirroring operations.">
+        <Response type="svc_status"/>
+        <FlagParam name="-kb"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-feature" description="flash|remote|mirror"/>
+        <ValueParam name="-size"/>
+        <ValueParam name="io_group" noName="true" required="true"/>
+      </Command>
+      <Command name="chlicense" description="The chlicense command changes license settings for cluster features.">
+        <Response type="svc_status"/>
+        <ValueParam name="-flash"/>
+        <ValueParam name="-remote"/>
+        <ValueParam name="-physical_disks"/>
+        <ValueParam name="-physical_flash" description="on|off"/>
+        <ValueParam name="-physical_remote" description="on|off"/>
+        <ValueParam name="-virtualization"/>
+      </Command>
+      <Command name="chmdisk" description="Use the chmdisk command to modify the name of a managed disk (MDisk).">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="chmdiskgrp" description="Use the chmdiskgrp command to modify the name that is assigned to a managed disk (MDisk) group or to set the warning threshold for the MDisk group.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-warning" description="disk_size|disk_size_percentage%"/>
+        <ValueParam name="-unit" description="b|kb|mb|gb|tb|pb"/>
+        <ValueParam name="mdisk_group" noName="true" required="true"/>
+      </Command>
+      <Command name="chnode" description="You can use the chnode command to change the name that is assigned to a node and other options. The name can then be used when running subsequent commands. All the parameters that are associated with this command are optional. However, you must specify one or more parameters with this command.">
+        <Response type="svc_status"/>
+        <ValueParam name="-iscsialias"/>
+        <FlagParam name="-noiscsialias"/>
+        <FlagParam name="-failover"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="node" noName="true" required="true"/>
+      </Command>
+      <Command name="chpartnership" description="The chpartnership command modifies the bandwidth of the partnership between the local cluster and the remote cluster that is specified in the command. This affects the bandwidth that is available for background copy in a cluster partnership by either Metro Mirror or Global Mirror operations. This command can also be used to disable and re-enable the partnership, to permit the local cluster to be disconnected and then reconnected to the remote cluster.">
+        <Response type="svc_status"/>
+        <FlagParam name="-start"/>
+        <FlagParam name="-stop"/>
+        <ValueParam name="-bandwidth"/>
+        <ValueParam name="remote_cluster" noName="true" required="true"/>
+      </Command>
+      <Command name="chrcconsistgrp" description="The chrcconsistgrp command modifies the name of an existing Metro Mirror or Global Mirror consistency group.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name" required="true"/>
+        <ValueParam name="rc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="chrcrelationship" description="The chrcrelationship command enables you to modify certain attributes of an existing relationship, such as to add a relationship to a consistency group, to remove a relationship from a consistency group, and to change the name of the relationship. You can only change one attribute at a time per command submittal.">
+        <Response type="svc_status"/>
+        <ValueParam name="-consistgrp" description="consist_group_id|consist_group_name"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="rc_rel" noName="true" required="true"/>
+      </Command>
+      <Command name="chsnmpserver" description="The chsnmpserver command modifies the parameters of an existing SNMP server.">
+        <Response type="svc_status"/>
+        <ValueParam name="-info" description="on|off"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-ip"/>
+        <ValueParam name="-community"/>
+        <ValueParam name="-warning" description="on|off"/>
+        <ValueParam name="-error" description="on|off"/>
+        <ValueParam name="-port"/>
+        <ValueParam name="snmp_server" noName="true" required="true"/>
+      </Command>
+      <Command name="chsyslogserver" description="The chsyslogserver command modifies the parameters of an existing syslog server.">
+        <Response type="svc_status"/>
+        <ValueParam name="-info" description="on|off"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-facility"/>
+        <ValueParam name="-ip"/>
+        <ValueParam name="-warning" description="on|off"/>
+        <ValueParam name="-error" description="on|off"/>
+        <ValueParam name="syslog_server" noName="true" required="true"/>
+      </Command>
+      <Command name="chuser" description="The chuser command changes the attributes of an existing user.">
+        <Response type="svc_status"/>
+        <ValueParam name="-remote" description="yes|no"/>
+        <FlagParam name="-nokey"/>
+        <FlagParam name="-nopassword"/>
+        <ValueParam name="-password"/>
+        <ValueParam name="-keyfile"/>
+        <ValueParam name="-usergrp"/>
+        <ValueParam name="user" noName="true" required="true"/>
+      </Command>
+      <Command name="chusergrp" description="The chusergrp command changes the attributes of an existing user group.">
+        <Response type="svc_status"/>
+        <ValueParam name="-remote" description="yes|no"/>
+        <ValueParam name="-role"/>
+        <ValueParam name="group" noName="true" required="true"/>
+      </Command>
+      <Command name="chvdisk" description="The chvdisk command modifies the properties of a VDisk (volume), such as the disk name, I/O group, I/O governing rate, or unit number.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-iogrp"/>
+        <ValueParam name="-cache" description="readwrite|none"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-node"/>
+        <ValueParam name="-rate"/>
+        <FlagParam name="-unitmb"/>
+        <ValueParam name="-udid"/>
+        <ValueParam name="-warning" description="disk_size|disk_size_percentage%"/>
+        <ValueParam name="-unit" description="b|kb|mb|gb|tb|pb"/>
+        <ValueParam name="-autoexpand" description="on|off"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="-primary"/>
+        <ValueParam name="-syncrate"/>
+        <ParamChoice required="true">
+          <ValueParam name="vdisk" noName="true"/>
+          <ValueParam name="vdisk_id" noName="true"/>
+          <ValueParam name="vdisk_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="cleardumps" description="The cleardumps command cleans the various dump directories on a specified node.">
+        <Response type="svc_status"/>
+        <ValueParam name="-prefix" required="true"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="clearerrlog" description="The clearerrlog command clears all entries from the error log including status events and any unfixed errors.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+      </Command>
+      <Command name="cpdumps" description="The cpdumps command copies dump files from a nonconfiguration node onto the configuration node.    Note: In the rare event that the /dumps directory on the configuration node is full, the copy action ends when the directory is full and provides no indicator of a failure. Therefore, clear the /dumps directory after migrating data from the configuration node.">
+        <Response type="svc_status"/>
+        <ValueParam name="-prefix" required="true" description="directory|file_filter"/>
+        <ValueParam name="node" noName="true" required="true"/>
+      </Command>
+      <Command name="detectmdisk" description="The detectmdisk command allows you to manually rescan the fibre-channel network for any new managed disks (MDisks) that might have been added and to rebalance MDisk access across all available controller device ports.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="dumpauditlog" description="Use the dumpauditlog command to reset or clear the contents of the in-memory audit log. The contents of the audit log are sent to a file in the /dumps/audit directory on the current configuration node.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="dumperrlog" description="The dumperrlog command dumps the contents of the error log to a text file.">
+        <Response type="svc_status"/>
+        <ValueParam name="-prefix"/>
+      </Command>
+      <Command name="dumpinternallog" description="The dumpinternallog command dumps the contents of the license settings error and event log to a file on the current configuration node.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="enablecli" description="Use the enablecli command to fully enable the CLI for a cluster that has been through a cluster recovery process.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="expandvdisksize" description="The expandvdisksize command expands the size of a VDisk by a given capacity.">
+        <Response type="svc_status"/>
+        <FlagParam name="-fmtdisk"/>
+        <ValueParam name="-mdisk" description="mdisk_id_list|mdisk_name_list"/>
+        <ValueParam name="-rsize"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="-unit" description="b|kb|mb|gb|tb|pb"/>
+        <ValueParam name="-size"/>
+        <ParamChoice required="true">
+          <ValueParam name="vdisk" noName="true"/>
+          <ValueParam name="vdisk_id" noName="true"/>
+          <ValueParam name="vdisk_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="finderr" description="The finderr command analyzes the error log for the highest severity unfixed error.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="includemdisk" description="Use the includemdisk command to include a disk that has been excluded by the cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="migrateexts" description="The migrateexts command migrates extents from one managed disk to another.">
+        <Response type="svc_status"/>
+        <ValueParam name="-exts" required="true"/>
+        <ValueParam name="-target" required="true" description="target_mdisk_id|target_mdisk_name"/>
+        <ValueParam name="-vdisk" required="true" description="vdisk_id|vdisk_name"/>
+        <ValueParam name="-source" required="true" description="source_mdisk_id|source_mdisk_name"/>
+        <ValueParam name="-threads"/>
+        <ValueParam name="-copy"/>
+      </Command>
+      <Command name="migratetoimage" description="The migratetoimage command migrates data from a VDisk (image mode or managed mode) onto a new image mode VDisk copy. The target disk does not have to be in the same MDisk group as the source disk.">
+        <Response type="svc_status"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="-vdisk" required="true" description="source_vdisk_id|name"/>
+        <ValueParam name="-threads"/>
+        <ValueParam name="-mdisk" required="true" description="unmanaged_target_mdisk_id|name"/>
+        <ValueParam name="-mdiskgrp" required="true" description="managed_disk_group_id|name"/>
+      </Command>
+      <Command name="migratevdisk" description="The migratevdisk command enables you to migrate an entire virtual disk from one managed disk group to another managed disk group.">
+        <Response type="svc_status"/>
+        <ValueParam name="-vdisk" required="true" description="vdisk_id|vdisk_name"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="-mdiskgrp" required="true" description="mdisk_group_id|mdisk_group_name"/>
+        <ValueParam name="-threads"/>
+      </Command>
+      <Command name="mkemailserver" description="The mkemailserver command creates an e-mail server object that describes a remote Simple Mail Transfer Protocol (SMTP) e-mail server.">
+        <Response type="svc_status"/>
+        <ValueParam name="-ip" required="true"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-port"/>
+      </Command>
+      <Command name="mkemailuser" description="The mkemailuser command adds a recipient of e-mail event and inventory notifications to the e-mail event notification facility. You can add up to twelve recipients, one recipient at a time.">
+        <Response type="svc_status"/>
+        <ValueParam name="-info" description="on|off"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-address" required="true"/>
+        <ValueParam name="-usertype" required="true" description="support|local"/>
+        <ValueParam name="-warning" description="on|off"/>
+        <ValueParam name="-inventory" description="on|off"/>
+        <ValueParam name="-error" description="on|off"/>
+      </Command>
+      <Command name="mkfcconsistgrp" description="The mkfcconsistgrp command creates a new FlashCopy consistency group and identification name.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <FlagParam name="-autodelete"/>
+      </Command>
+      <Command name="mkfcmap" description="The mkfcmap command creates a new FlashCopy mapping, which maps a source VDisk to a target VDisk for subsequent copying.">
+        <Response type="svc_status"/>
+        <ValueParam name="-consistgrp" description="consist_group_id|consist_group_name"/>
+        <ValueParam name="-target" required="true" description="target_vdisk_id|target_vdisk_name"/>
+        <FlagParam name="-autodelete"/>
+        <ValueParam name="-grainsize" description="64|256"/>
+        <ValueParam name="-cleanrate"/>
+        <ValueParam name="-source" required="true" description="src_vdisk_id|src_vdisk_name"/>
+        <FlagParam name="-incremental"/>
+        <ValueParam name="-iogrp" description="iogroup_name|iogroup_id"/>
+        <ValueParam name="-copyrate"/>
+        <ValueParam name="-name"/>
+      </Command>
+      <Command name="mkhost" description="The mkhost command creates a logical host object.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <ParamChoice required="true">
+          <ValueParam name="-hbawwpn"/>
+          <ValueParam name="-iscsiname"/>
+        </ParamChoice>
+        <ValueParam name="-iogrp"/>
+        <ValueParam name="-mask"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-type" description="hpux|tpgs|generic"/>
+      </Command>
+      <Command name="mkmdiskgrp" description="The mkmdiskgrp command creates a new managed disk group (storage pool).">
+        <Response type="svc_status"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-ext" required="true"/>
+        <ValueParam name="-warning" description="disk_size|disk_size_percentage%"/>
+        <ValueParam name="-mdisk" description="mdisk_id_list|mdisk_name_list"/>
+        <ValueParam name="-unit" description="b|kb|mb|gb|tb|pb"/>
+      </Command>
+      <Command name="mkpartnership" description="The mkpartnership command establishes a one-way Metro Mirror or Global Mirror relationship between the local cluster and a remote cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="-bandwidth" required="true"/>
+        <ValueParam name="remote_cluster" noName="true" required="true"/>
+      </Command>
+      <Command name="mkrcconsistgrp" description="The mkrcconsistgrp command creates a new, empty Metro Mirror or Global Mirror consistency group. If the -cluster parameter is not specified, the consistency group is created on the local cluster only.">
+        <Response type="svc_status"/>
+        <ValueParam name="-cluster" description="cluster_id|cluster_name"/>
+        <ValueParam name="-name"/>
+      </Command>
+      <Command name="mkrcrelationship" description="The mkrcrelationship command creates a new Metro Mirror or Global Mirror relationship with virtual disks (VDisks) in the same cluster (intracluster relationship) or in two different clusters (intercluster relationship).">
+        <Response type="svc_status"/>
+        <ValueParam name="-consistgrp" description="consist_group_id|consist_group_name"/>
+        <ValueParam name="-name"/>
+        <FlagParam name="-global"/>
+        <FlagParam name="-sync"/>
+        <ValueParam name="-cluster" required="true" description="cluster_id|cluster_name"/>
+        <ValueParam name="-master" required="true" description="master_vdisk_id|master_vdisk_name"/>
+        <ValueParam name="-aux" required="true" description="aux_vdisk_id|aux_vdisk_name"/>
+      </Command>
+      <Command name="mksnmpserver" description="The mksnmpserver command creates an SNMP server to receive notifications.">
+        <Response type="svc_status"/>
+        <ValueParam name="-info" description="on|off"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-ip" required="true"/>
+        <ValueParam name="-community"/>
+        <ValueParam name="-warning" description="on|off"/>
+        <ValueParam name="-error" description="on|off"/>
+        <ValueParam name="-port"/>
+      </Command>
+      <Command name="mksyslogserver" description="The mksyslogserver command creates a syslog server to receive notifications.">
+        <Response type="svc_status"/>
+        <ValueParam name="-info" description="on|off"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-facility"/>
+        <ValueParam name="-ip" required="true"/>
+        <ValueParam name="-warning" description="on|off"/>
+        <ValueParam name="-error" description="on|off"/>
+      </Command>
+      <Command name="mkuser" description="The mkuser command creates either a local or a remote user to access a SAN Volume Controller cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="-name" required="true"/>
+        <ValueParam name="-keyfile"/>
+        <ValueParam name="-password"/>
+        <FlagParam name="-remote"/>
+        <ValueParam name="-usergrp"/>
+      </Command>
+      <Command name="mkusergrp" description="The mkusergrp command creates a new user group.">
+        <Response type="svc_status"/>
+        <FlagParam name="-remote"/>
+        <ValueParam name="-role" required="true"/>
+        <ValueParam name="-name" required="true"/>
+      </Command>
+      <Command name="mkvdisk" description="The mkvdisk command creates sequential, striped, or image mode virtual disk (volume) objects. When they are mapped to a host object, these objects are seen as disk drives with which the host can perform I/O operations.    Note: The first syntax diagram depicts the creation of a striped mode virtual disk. The second syntax diagram depicts the creation of a sequential or image mode virtual disk.">
+        <Response type="svc_status"/>
+        <ValueParam name="-mdiskgrp" required="true"/>
+        <ValueParam name="-iogrp" required="true"/>
+        <ValueParam name="-udid"/>
+        <ValueParam name="-size"/>
+        <ValueParam name="-rsize" description="disk_size|disk_size_percentage%|auto"/>
+        <ValueParam name="-warning" description="disk_size|disk_size_percentage%"/>
+        <FlagParam name="-autoexpand"/>
+        <ValueParam name="-grainsize" description="32|64|128|256"/>
+        <FlagParam name="-import"/>
+        <ValueParam name="-copies"/>
+        <ValueParam name="-syncrate"/>
+        <FlagParam name="-createsync"/>
+        <FlagParam name="-fmtdisk"/>
+        <ValueParam name="-vtype" description="seq|striped|image"/>
+        <ValueParam name="-node"/>
+        <ValueParam name="-unit" description="b|kb|mb|gb|tb|pb"/>
+        <ValueParam name="-mdisk"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-cache" description="readwrite|none"/>
+      </Command>
+      <Command name="mkvdiskhostmap" description="The mkvdiskhostmap command creates a new mapping between a virtual disk and a host, which makes the virtual disk accessible for I/O operations to the specified host.">
+        <Response type="svc_status"/>
+        <ValueParam name="-host" required="true" description="host_id|host_name"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-scsi"/>
+        <ParamChoice required="true">
+          <ValueParam name="vdisk" noName="true"/>
+          <ValueParam name="vdisk_id" noName="true"/>
+          <ValueParam name="vdisk_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="ping" description="The ping command can be used to diagnose IP configuration problems by checking whether the specified IP address is accessible from the configuration node.">
+        <Response type="svc_status"/>
+        <ValueParam name="address" noName="true" required="true"/>
+      </Command>
+      <Command name="prestartfcconsistgrp" description="The prestartfcconsistgrp command prepares a consistency group (a group of FlashCopy mappings) so that the consistency group can be started. This command flushes the cache of any data that is destined for the source VDisk and forces the cache into the write-through mode until the consistency group is started.">
+        <Response type="svc_status"/>
+        <FlagParam name="-restore"/>
+        <ValueParam name="fc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="prestartfcmap" description="The prestartfcmap command prepares a FlashCopy mapping so that it can be started. This command flushes the cache of any data that is destined for the source VDisk and forces the cache into the write-through mode until the mapping is started.">
+        <Response type="svc_status"/>
+        <FlagParam name="-restore"/>
+        <ValueParam name="fc_map" noName="true" required="true"/>
+      </Command>
+      <Command name="recovervdisk" description="The recovervdisk command acknowledges VDisk data loss and brings the VDisk back online.">
+        <Response type="svc_status"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="recovervdiskbycluster" description="The recovervdiskbycluster command acknowledges data loss for all VDisks in the cluster with a fast_write_state of corrupt and brings the VDisks back online.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="recovervdiskbyiogrp" description="The recovervdiskbyiogrp command acknowledges data loss for all VDisks in the specified I/O group with a fast_write_state of corrupt and brings the VDisks back online.">
+        <Response type="svc_status"/>
+        <ValueParam name="io_group" noName="true" required="true"/>
+      </Command>
+      <Command name="repairsevdiskcopy" description="The repairsevdiskcopy command repairs the metadata on a space-efficient virtual disk.">
+        <Response type="svc_status"/>
+        <ValueParam name="-copy" description="0|1"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="repairvdiskcopy" description="The repairvdiskcopy command detects and optionally, corrects any VDisk (volume) copies that are not identical.">
+        <Response type="svc_status"/>
+        <FlagParam name="-medium"/>
+        <FlagParam name="-resync"/>
+        <FlagParam name="-validate"/>
+        <ValueParam name="-startlba"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="resetleds" description="Use the resetleds command to simultaneously switch off all LEDs in the cluster.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="rmemailserver" description="The rmemailserver command deletes the specified e-mail server object.">
+        <Response type="svc_status"/>
+        <ValueParam name="email_server" noName="true" required="true"/>
+      </Command>
+      <Command name="rmemailuser" description="The rmemailuser command allows you to remove a previously defined e-mail recipient from your system.">
+        <Response type="svc_status"/>
+        <ValueParam name="user" noName="true" required="true"/>
+      </Command>
+      <Command name="rmfcconsistgrp" description="The rmfcconsistgrp command deletes a FlashCopy consistency group.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="fc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="rmfcmap" description="The rmfcmap command deletes an existing mapping.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="fc_map" noName="true" required="true"/>
+      </Command>
+      <Command name="rmhost" description="The rmhost command deletes a host object.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="host" noName="true" required="true"/>
+      </Command>
+      <Command name="rmhostiogrp" description="The rmhostiogrp command enables you to delete mappings between one or more I/O groups and a specified host object.">
+        <Response type="svc_status"/>
+        <FlagParam name="-iogrpall"/>
+        <ValueParam name="-iogrp" required="true"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="host" noName="true" required="true"/>
+      </Command>
+      <Command name="rmhostport" description="The rmhostport command deletes worldwide port names (WWPNs) or iSCSI names from an existing host object.">
+        <Response type="svc_status"/>
+        <ParamChoice required="true">
+          <ValueParam name="-hbawwpn"/>
+          <ValueParam name="-iscsiname"/>
+        </ParamChoice>
+        <FlagParam name="-force"/>
+        <ValueParam name="host" noName="true" required="true"/>
+      </Command>
+      <Command name="rmmdisk" description="The rmmdisk command deletes a managed disk (MDisk) from a managed disk group.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-mdisk" required="true" description="mdisk_id_list|mdisk_name_list"/>
+        <ValueParam name="mdisk_group" noName="true" required="true"/>
+      </Command>
+      <Command name="rmmdiskgrp" description="The rmmdiskgrp command deletes a managed disk group so that there is no possibility to recover it.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="mdisk_group" noName="true" required="true"/>
+      </Command>
+      <Command name="rmnode" description="The rmnode command deletes a node from the cluster. You can enter this command any time after a cluster has been created.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="rmpartnership" description="The rmpartnership command removes a Metro Mirror or Global Mirror partnership on one cluster. Because the partnership exists on both clusters, it is necessary to run this command on both clusters to remove both sides of the partnership. If the command is run on only one cluster, the partnership enters a partially configured state on the other cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="remote_cluster" noName="true" required="true"/>
+      </Command>
+      <Command name="rmportip" description="The rmportip command removes an iSCSI IP address from a node ethernet port.">
+        <Response type="svc_status"/>
+        <FlagParam name="-ip_6"/>
+        <ValueParam name="-node" required="true" description="node_name|node_id"/>
+        <FlagParam name="-failover"/>
+        <ValueParam name="port" noName="true" required="true"/>
+      </Command>
+      <Command name="rmrcconsistgrp" description="The rmrcconsistgrp command deletes an existing Metro Mirror or Global Mirror consistency group.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="rc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="rmrcrelationship" description="The rmrcrelationship command deletes an existing Metro Mirror or Global Mirror relationship.">
+        <Response type="svc_status"/>
+        <ValueParam name="rc_rel" noName="true" required="true"/>
+      </Command>
+      <Command name="rmsnmpserver" description="The rmsnmpserver command deletes the specified SNMP server.">
+        <Response type="svc_status"/>
+        <ValueParam name="snmp_server" noName="true" required="true"/>
+      </Command>
+      <Command name="rmsyslogserver" description="The rmsyslogserver command deletes the specified syslog server.">
+        <Response type="svc_status"/>
+        <ValueParam name="syslog_server" noName="true" required="true"/>
+      </Command>
+      <Command name="rmuser" description="The rmuser command deletes a user.">
+        <Response type="svc_status"/>
+        <ValueParam name="user" noName="true" required="true"/>
+      </Command>
+      <Command name="rmusergrp" description="The rmusergrp command deletes a user group.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="group" noName="true" required="true"/>
+      </Command>
+      <Command name="rmvdisk" description="The rmvdisk command deletes a virtual disk (VDisk).">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ParamChoice>
+          <ValueParam name="vdisk" noName="true"/>
+          <ValueParam name="vdisk_id" noName="true"/>
+          <ValueParam name="vdisk_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="rmvdiskcopy" description="The rmvdiskcopy command removes a VDisk copy from a VDisk.">
+        <Response type="svc_status"/>
+        <ValueParam name="-copy" required="true"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="rmvdiskhostmap" description="The rmvdiskhostmap command deletes an existing virtual disk-to-host mapping; the virtual disk is no longer accessible for I/O transactions on the given host.">
+        <Response type="svc_status"/>
+        <ValueParam name="-host" required="true" description="host_id|host_name"/>
+        <ParamChoice required="true">
+          <ValueParam name="vdisk" noName="true"/>
+          <ValueParam name="vdisk_id" noName="true"/>
+          <ValueParam name="vdisk_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="sendinventoryemail" description="The sendinventoryemail command sends an inventory e-mail notification to all e-mail recipients who are enabled to receive inventory e-mail notifications. There are no parameters for this command.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="setclustertime" description="The setclustertime command allows you to set the time for the cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="-time" required="true"/>
+      </Command>
+      <Command name="setdisktrace" description="Use the setdisktrace command to set a list of disks of a given type, to include in a disk trace.">
+        <Response type="svc_status"/>
+        <FlagParam name="-reset"/>
+        <FlagParam name="-all"/>
+        <FlagParam name="-set"/>
+        <ValueParam name="-type" required="true" description="mdisk|vdisk"/>
+        <ValueParam name="-objectid"/>
+      </Command>
+      <Command name="setlocale" description="The setlocale command changes the locale setting for the cluster. It also changes command output to the chosen language.">
+        <Response type="svc_status"/>
+        <ValueParam name="-locale"/>
+      </Command>
+      <Command name="setpwdreset" description="Use the setpwdreset command to view and change the status of the password-reset feature for the display panel.">
+        <Response type="svc_status"/>
+        <FlagParam name="-enable"/>
+        <FlagParam name="-disable"/>
+        <FlagParam name="-show"/>
+      </Command>
+      <Command name="setquorum" description="Use the setquorum command to change the managed disks (MDisks) that are assigned as quorum candidate disks.">
+        <Response type="svc_status"/>
+        <ValueParam name="-quorum" required="true" description="0|1|2"/>
+        <FlagParam name="-active"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="settimezone" description="Use the settimezone command to set the time zone for the cluster.">
+        <Response type="svc_status"/>
+        <ValueParam name="-timezone"/>
+      </Command>
+      <Command name="settrace" description="The settrace command sets options to trace certain I/O operations through the system.">
+        <Response type="svc_status"/>
+        <ValueParam name="-cmds"/>
+        <FlagParam name="-detect"/>
+        <FlagParam name="-timestamp"/>
+        <ValueParam name="-percent"/>
+        <FlagParam name="-abort"/>
+        <ValueParam name="-cmdlist"/>
+        <FlagParam name="-data"/>
+        <FlagParam name="-init"/>
+        <ValueParam name="-trigger" required="true" description="full|status|command|timeout|trigger|abort"/>
+        <ValueParam name="-cmdmask"/>
+        <ValueParam name="-skcqmask"/>
+        <ValueParam name="-file" required="true"/>
+        <FlagParam name="-sense"/>
+        <ValueParam name="-skcqlist"/>
+        <FlagParam name="-tag"/>
+        <ValueParam name="-type" required="true" description="mdisk|vdisk"/>
+      </Command>
+      <Command name="shrinkvdisksize" description="The shrinkvdisksize command reduces the size of a VDisk by the specified capacity.">
+        <Response type="svc_status"/>
+        <ValueParam name="-rsize"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="-unit" description="b|kb|mb|gb|tb|pb"/>
+        <ValueParam name="-size" required="true"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="splitvdiskcopy" description="The splitvdiskcopy command creates a separate VDisk from a synchronized copy of a mirrored VDisk.">
+        <Response type="svc_status"/>
+        <ValueParam name="-node" description="node_id|node_name"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-name"/>
+        <ValueParam name="-udid"/>
+        <ValueParam name="-cache" description="readwrite|none"/>
+        <ValueParam name="-copy" required="true"/>
+        <ValueParam name="-iogrp" description="io_group_id|io_group_name"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="startemail" description="The startemail command activates the e-mail and inventory notification function. There are no parameters for this command.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="startfcconsistgrp" description="The startfcconsistgrp command starts a FlashCopy consistency group of mappings. This command makes a point-in-time copy of the source VDisks at the moment that the command is started.">
+        <Response type="svc_status"/>
+        <FlagParam name="-restore"/>
+        <FlagParam name="-prep"/>
+        <ValueParam name="fc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="startfcmap" description="The startfcmap command starts a FlashCopy mapping. This command makes a point-in-time copy of the source VDisk at the moment that the command is started.">
+        <Response type="svc_status"/>
+        <FlagParam name="-restore"/>
+        <FlagParam name="-prep"/>
+        <ValueParam name="fc_map" noName="true" required="true"/>
+      </Command>
+      <Command name="startrcconsistgrp" description="The startrcconsistgrp command starts the Metro Mirror or Global Mirror consistency group copy process, sets the direction of copy if it is undefined, and optionally marks the secondary VDisks of the consistency group as clean.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-primary" description="master|aux"/>
+        <FlagParam name="-clean"/>
+        <ValueParam name="rc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="startrcrelationship" description="The startrcrelationship command starts the Metro Mirror or Global Mirror relationship copy process, sets the direction of copy if undefined, and optionally, marks the secondary VDisk of the relationship as clean. The relationship must be a stand-alone relationship.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <ValueParam name="-primary" description="master|aux"/>
+        <FlagParam name="-clean"/>
+        <ValueParam name="rc_rel" noName="true" required="true"/>
+      </Command>
+      <Command name="startstats" description="Use the startstats command to modify the interval at which per-node statistics for virtual disks (VDisks), managed disks (MDisks), and nodes are collected.">
+        <Response type="svc_status"/>
+        <ValueParam name="-interval"/>
+      </Command>
+      <Command name="starttrace" description="Use the starttrace command to begin tracing I/O operations that are based on the option currently set for the specified object type and the list of disks to trace.">
+        <Response type="svc_status"/>
+        <ValueParam name="-type" description="mdisk|vdisk"/>
+      </Command>
+      <Command name="stopcluster" description="The stopcluster command allows you to shut down a single node or the entire cluster in a controlled manner. When you issue this command, you are prompted with a confirmation of intent to process the command.">
+        <Response type="svc_status"/>
+        <ValueParam name="-node" description="node_name|node_id"/>
+        <FlagParam name="-force"/>
+      </Command>
+      <Command name="stopemail" description="The stopemail command stops the e-mail and inventory notification function. There are no parameters for this command.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="stopfcconsistgrp" description="The stopfcconsistgrp command stops all processing that is associated with a FlashCopy consistency group that is in one of the following processing states: prepared, copying, stopping, or suspended.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <FlagParam name="-split"/>
+        <ValueParam name="fc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="stopfcmap" description="The stopfcmap command stops all processing that is associated with a FlashCopy mapping that is in one of the following processing states: prepared, copying, stopping, or suspended.">
+        <Response type="svc_status"/>
+        <FlagParam name="-force"/>
+        <FlagParam name="-split"/>
+        <ValueParam name="fc_map" noName="true" required="true"/>
+      </Command>
+      <Command name="stoprcconsistgrp" description="The stoprcconsistgrp command stops the copy process for a Metro Mirror or Global Mirror consistency group. This command can also be used to enable write access to the secondary VDisks in the group if the group is in a consistent state.">
+        <Response type="svc_status"/>
+        <FlagParam name="-access"/>
+        <ValueParam name="rc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="stoprcrelationship" description="The stoprcrelationship command stops the copy process for a Metro Mirror or Global Mirror stand-alone relationship. You can also use this command to enable write access to a consistent secondary VDisk.">
+        <Response type="svc_status"/>
+        <FlagParam name="-access"/>
+        <ValueParam name="rc_rel" noName="true" required="true"/>
+      </Command>
+      <Command name="stopstats" description="Use the stopstats command to stop the collection of per-node statistics for virtual disks (VDisks), managed disks (MDisks), and nodes.">
+        <Response type="svc_status"/>
+      </Command>
+      <Command name="stoptrace" description="Use the stoptrace command to stop tracing operations for the specified disk type.">
+        <Response type="svc_status"/>
+        <ValueParam name="-type" required="true" description="mdisk|vdisk"/>
+      </Command>
+      <Command name="switchrcconsistgrp" description="The switchrcconsistgrp command reverses the roles of the primary and secondary virtual disks (VDisks) in a Metro Mirror or Global Mirror consistency group when that consistency group is in a consistent state. All the relationships in the consistency group are affected by this change.">
+        <Response type="svc_status"/>
+        <ValueParam name="-primary" required="true" description="master|aux"/>
+        <ValueParam name="rc_consist_group" noName="true" required="true"/>
+      </Command>
+      <Command name="switchrcrelationship" description="The switchrcrelationship command reverses the roles of primary and secondary virtual disks in a stand-alone Metro Mirror or Global Mirror relationship when that relationship is in a consistent state.">
+        <Response type="svc_status"/>
+        <ValueParam name="-primary" required="true" description="master|aux"/>
+        <ValueParam name="rc_rel" noName="true" required="true"/>
+      </Command>
+      <Command name="testemail" description="The testemail command allows you to send an e-mail notification to one user of the e-mail notification function or to all users of the e-mail notification function to ensure that the function is operating correctly.">
+        <Response type="svc_status"/>
+        <FlagParam name="-all"/>
+        <ValueParam name="user" noName="true"/>
+      </Command>
+      <Command name="triggermdiskdump" description="Use the triggermdiskdump command to collect error data from the specified managed disk (MDisk). Only solid-state drives (SSDs) can be specified.">
+        <Response type="svc_status"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="writesernum" description="Use the writesernum command to write the node serial number into the planar NVRAM.">
+        <Response type="svc_status"/>
+        <ValueParam name="-sernum" required="true"/>
+        <ValueParam name="node" noName="true" required="true"/>
+      </Command>
+    </Executable>
+    <Executable name="svcinfo">
+      <Command name="catauditlog" description="Use the catauditlog command to display the in-memory contents of the audit log.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-first"/>
+        <ValueParam name="-delim"/>
+      </Command>
+      <Command name="caterrlog" description="The caterrlog command displays the contents of the cluster error log and event log.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-config"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-first"/>
+      </Command>
+      <Command name="caterrlogbyseqnum" description="The caterrlogbyseqnum command displays all the errors with the sequence number or root cause number that has been specified by the user.">
+        <Response type="svc_normal"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-num"/>
+        <ValueParam name="-root"/>
+      </Command>
+      <Command name="ls2145dumps" description="Use the ls2145dumps command to display a list of error conditions detected by a node, and the associated output files from the /dumps directory.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsauditlogdumps" description="The lsauditlogdumps command generates a list of the audit log dumps that are available on the nodes in the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lscimomdumps" description="Use the lscimomdumps command to display a list of files in the /dumps/cimom directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lscluster" description="The lscluster command returns a concise list or a detailed view of a cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="-delim"/>
+        <ParamChoice>
+          <ValueParam name="cluster" noName="true"/>
+          <ValueParam name="cluster_id" noName="true"/>
+          <ValueParam name="cluster_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="lsclustercandidate" description="The lsclustercandidate command lists the clusters that are available for setting up a partnership with the local cluster. This is a prerequisite for creating intercluster Metro or Global Mirror relationships.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsclusterip" description="The lsclusterip command returns a list of the cluster management IP addresses configured for each port.">
+        <Response type="svc_grouped_detail_or_concise"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="cluster" noName="true"/>
+      </Command>
+      <Command name="lscontroller" description="The lscontroller  command returns a concise list, or a detailed view, of controllers that are visible to the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="controller" noName="true"/>
+      </Command>
+      <Command name="lscontrollerdependentvdisks" description="The lscontrollerdependentvdisks command lists the VDisks that are dependent on the specified controller.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="controller_list" noName="true"/>
+      </Command>
+      <Command name="lscopystatus" description="Use the lscopystatus command to determine whether any file copies are currently in progress.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lscurrentuser" description="Use the lscurrentuser command to display the name and role of the logged-in user.">
+        <Response type="svc_detailed"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsdiscoverystatus" description="Use the lsdiscoverystatus command to determine whether a discovery operation is in progress.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsemailserver" description="The lsemailserver command returns a concise list or a detailed view of e-mail servers that are configured on the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="email_server" noName="true"/>
+      </Command>
+      <Command name="lsemailuser" description="The lsemailuser command generates a report that lists the e-mail event notification settings for all e-mail recipients, an individual e-mail recipient, or a specified type (local or support) of e-mail recipient.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-type" description="support|local"/>
+        <ValueParam name="user" noName="true"/>
+      </Command>
+      <Command name="lserrlogbyfcconsistgrp" description="The lserrlogbyfcconsistgrp command displays errors and events in the log that are related to FlashCopy consistency groups.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="fcconsistgrp" noName="true"/>
+      </Command>
+      <Command name="lserrlogbyfcmap" description="The lserrlogbyfcmap command displays a list of the errors and events in the log that are related to FlashCopy mappings.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="fcmap" noName="true"/>
+      </Command>
+      <Command name="lserrlogbyhost" description="The lserrlogbyhost command displays a list of the errors and events in the log that are related to hosts.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="host" noName="true"/>
+      </Command>
+      <Command name="lserrlogbyiogrp" description="The lserrlogbyiogrp command displays a list of the errors and events in the log that are related to I/O groups.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="iogroup" noName="true"/>
+      </Command>
+      <Command name="lserrlogbymdisk" description="The lserrlogbymdisk command displays a list of the errors and events in the log that are related to a specific MDisk.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="mdisk" noName="true"/>
+      </Command>
+      <Command name="lserrlogbymdiskgrp" description="lserrlogbymdiskgrp     You can use the lserrlogbymdiskgroup command to display the error    log by MDisk group.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="mdisk_group" noName="true"/>
+      </Command>
+      <Command name="lserrlogbynode" description="The lserrlogbynode command displays a list of the errors and events in the log that are related to nodes.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lserrlogbyrcconsistgrp" description="You can use the lserrlogbyrcconsistgrp command to display the error log by Metro or Global Mirror consistency groups.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="rcconsistgrp" noName="true"/>
+      </Command>
+      <Command name="lserrlogbyrcrelationship" description="The lserrlogbyrcrelationship command displays a list of the errors and events in the log by Metro Mirror or Global Mirror relationships.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="rcrelationship" noName="true"/>
+      </Command>
+      <Command name="lserrlogbyvdisk" description="The lserrlogbyvdisk command displays a list of the errors and events in the log by VDisks.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-count"/>
+        <FlagParam name="-unfixed"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-copy"/>
+        <FlagParam name="-config"/>
+        <ValueParam name="vdisk" noName="true"/>
+      </Command>
+      <Command name="lserrlogdumps" description="The lserrlogdumps command displays a list of error log dumps in the /dumps/elogs directory. These dumps are created as a result of the svctask dumperrlog command.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsfabric" description="The lsfabric command generates a report that displays the fibre-channel connectivity between nodes, controllers and hosts.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-node"/>
+        <ValueParam name="-controller"/>
+        <ValueParam name="-cluster"/>
+        <ValueParam name="-host"/>
+        <ValueParam name="-wwpn"/>
+        <ValueParam name="-port"/>
+        <ValueParam name="-delim"/>
+      </Command>
+      <Command name="lsfcconsistgrp" description="The lsfcconsistgrp command returns a concise list or a detailed view of FlashCopy consistency groups that are visible to the cluster. This information is useful for tracking FlashCopy consistency groups.    The list report style can be used to obtain two styles of report:  *  A list containing concise information about all of the FlashCopy    consistency groups on a cluster. (Each entry in the list corresponds    to a single FlashCopy consistency group.) *  The detailed information about a single FlashCopy consistency group.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsfcmap" description="The lsfcmap command generates a list containing concise information about all of the FlashCopy mappings that are visible to the cluster, or detailed information for a single FlashCopy mapping.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsfcmapcandidate" description="The lsfcmapcandidate command lists all of the VDisks that are associated with fewer than 256 FlashCopy mappings.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsfcmapdependentmaps" description="The lsfcmapdependentmaps command displays all the FlashCopy mappings that are dependent on the user specified mapping.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="fc" noName="true" required="true"/>
+      </Command>
+      <Command name="lsfcmapprogress" description="The lsfcmapprogress command returns the progress of the background copy of a FlashCopy mapping. This is displayed as a percentage completed value.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="fcmap" noName="true" required="true"/>
+      </Command>
+      <Command name="lsfeaturedumps" description="The lsfeaturedumps command displays a list of dump files in the /dumps/feature directory. These dump files are created as a result of the svctask dumpinternallog command.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsfreeextents" description="The lsfreeextents command lists the number of free extents that are available on a specified MDisk.">
+        <Response type="svc_detailed"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lshbaportcandidate" description="The lshbaportcandidate command lists all of the unconfigured, logged-in host bus adapter (HBA) ports. This information is used to find open HBA ports.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lshost" description="The lshost command generates a list with concise information about all the hosts visible to the cluster and detailed information about a single host.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ParamChoice>
+          <ValueParam name="object" noName="true"/>
+          <ValueParam name="object_id" noName="true"/>
+          <ValueParam name="object_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="lshostiogrp" description="The lshostiogrp command displays a list of all the I/O groups that are associated with a specified host.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="host" noName="true" required="true"/>
+      </Command>
+      <Command name="lshostvdiskmap" description="The lshostvdiskmap command displays a list of VDisks that are mapped to a given host. These are the VDisks that are recognized by the specified host.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="host" noName="true"/>
+      </Command>
+      <Command name="lsiogrp" description="The lsiogrp command returns a concise list or a detailed view of I/O groups visible to the cluster.    The list report style can be used to obtain the following two styles of report:  *  A list containing concise information about all the I/O groups that    are visible to the cluster. Each entry in the list corresponds to a    single I/O group. *  The detailed information about a single I/O group.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsiogrpcandidate" description="Use the lsiogrpcandidate command to list the I/O groups that can have nodes added to them.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsiogrphost" description="The lsiogrphost command displays a list of the hosts that are mapped to a specified I/O group.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="iogrp" noName="true" required="true"/>
+      </Command>
+      <Command name="lsiostatsdumps" description="The lsiostatsdumps command displays a list of dumps in the /dumps/iostats directory. Use the svctask startstats command to create these dumps.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsiotracedumps" description="Use the lsiotracedumps command to display a list of files in the /dumps/iotrace directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsiscsiauth" description="The lsiscsiauth command lists the Challenge Handshake Authentication Protocol (CHAP) secret configured for authenticating an entity to the SAN Volume Controller cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lslicense" description="The lslicense command displays current license settings for cluster features.">
+        <Response type="svc_detailed"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsmdisk" description="The lsmdisk command returns a concise list or a detailed view of managed disks (MDisks) visible to the cluster. It can also list detailed information about a single MDisk.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsmdiskcandidate" description="The lsmdiskcandidate command lists all of the unmanaged MDisks by MDisk ID.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsmdiskdumps" description="The lsmdiskdumps command displays a list of dumps in the /dumps/mdisk directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsmdiskextent" description="The lsmdiskextent command displays the extent allocation between managed disks and virtual disks. The output lists a VDisk ID, VDisk copy ID, and the number of extents.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsmdiskgrp" description="The lsmdiskgrp command returns a concise list or a detailed view of MDisk groups (storage pools) visible to the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsmdisklba" description="The lsmdisklba command lists the MDisk and logical block address (LBA) for the specified VDisk LBA.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-vdisklba" required="true"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-vdisk" required="true" description="vdisk_id|vdisk_name"/>
+        <ValueParam name="-copy"/>
+      </Command>
+      <Command name="lsmdiskmember" description="The lsmdiskmember command displays a list of VDisks that are using extents on the specified MDisk. That is, the virtual disks are using extents on the managed disk that are specified by the MDisk ID.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="mdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsmigrate" description="The lsmigrate command displays the progress of all current data migration operations.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsnode" description="The lsnode command returns a concise list or a detailed view of nodes that are part of the cluster.    The list report style can be used to obtain two styles of report:  *   A list containing concise information about all the nodes on a    cluster. (Each entry in the list corresponds to a single node.) *  The detailed information about a single node.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsnodecandidate" description="The lsnodecandidate command lists all of the nodes that are available to add to the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsnodedependentvdisks" description="The lsnodedependentvdisks command displays the virtual disks (VDisks) that are dependent on the status of the specified node.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true" required="true"/>
+      </Command>
+      <Command name="lsnodevpd" description="The lsnodevpd command displays the vital product data (VPD) for each node.">
+        <Response type="svc_nested_fields"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true" required="true"/>
+      </Command>
+      <Command name="lsportip" description="The lsportip command lists the iSCSI IP addresses assigned for each port on each node in the cluster.">
+        <Response type="svc_grouped_detail_or_concise"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="ethernet_port" noName="true"/>
+      </Command>
+      <Command name="lsquorum" description="The lsquorum command lists the managed disks (MDisks) or drives that the cluster is currently using to store quorum data.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="quorum_index" noName="true"/>
+      </Command>
+      <Command name="lsrcconsistgrp" description="The lsrcconsistgrp command returns a concise list or a detailed view of Metro or Global Mirror consistency groups visible to the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsrcrelationship" description="The lsrcrelationship command returns a concise list or a detailed view of Metro or Global Mirror relationships visible to the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsrcrelationshipcandidate" description="The lsrcrelationshipcandidate command lists VDisks that are eligible to form Metro or Global Mirror relationships. You can list eligible VDisks that are on the local or remote cluster.">
+        <Response type="svc_normal"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-aux" description="aux_cluster_id|aux_cluster_name"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-master" description="master_vdisk_id|master_vdisk_name"/>
+      </Command>
+      <Command name="lsrcrelationshipprogress" description="You can use the lsrcrelationshipprogress command to display the progress of the background copy of a Metro Mirror or Global Mirror relationship as a percentage. When the initial background copy process for a relationship has completed, null is displayed for the progress of that relationship.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="rcrelationship" noName="true"/>
+      </Command>
+      <Command name="lsrepairsevdiskcopyprogress" description="The lsrepairsevdiskcopyprogress command lists the repair progress for space-efficient VDisk copies.">
+        <Response type="svc_normal"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="vdisk" noName="true"/>
+      </Command>
+      <Command name="lsrepairvdiskcopyprogress" description="The lsrepairvdiskcopyprogress command displays the progress of mirrored VDisk (volume) repairs and validations.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-copy"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="vdisk" noName="true"/>
+      </Command>
+      <Command name="lsrmvdiskdependentmaps" description="The lsrmvdiskdependentmaps command displays all FlashCopy mappings that must be stopped for the specified VDisk to be deleted.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsroute" description="The lsroute command displays the IP routing table.">
+        <Response type="svc_custom" param="lsroute"/>
+      </Command>
+      <Command name="lssevdiskcopy" description="The lssevdiskcopy command lists the space-efficient copies of the specified VDisks (volumes).">
+        <Response type="svc_concise" param="copy"/>
+        <FlagParam name="-nohdr"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="vdisk" noName="true"/>
+      </Command>
+      <Command name="lssnmpserver" description="The lssnmpserver command returns a concise list or a detailed view of SNMP servers that are configured on the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="snmp_server" noName="true"/>
+      </Command>
+      <Command name="lssoftwaredumps" description="Use the lssoftwaredumps command to display a list of software packages from the /home/admin/upgrade directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lssoftwareupgradestatus" description="The lssoftwareupgradestatus command displays the status of a software upgrade.">
+        <Response type="svc_normal"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lssyslogserver" description="The lssyslogserver command returns a concise list or a detailed view of syslog servers that are configured on the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="syslog_server" noName="true"/>
+      </Command>
+      <Command name="lstimezones" description="The lstimezones command lists the time zones that are available on the cluster. Each timezone is assigned an ID that can be used in the svctask settimezone command to set the time zone.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsuser" description="Use the lsuser command to display a list of the users that have been created on the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="user" noName="true"/>
+      </Command>
+      <Command name="lsusergrp" description="Use the lsusergrp command to display a list of the user groups that have been created on the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="usergrp" noName="true"/>
+      </Command>
+      <Command name="lsvdisk" description="The lsvdisk command displays a concise list or a detailed view of VDisks that are recognized by the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="object" noName="true"/>
+      </Command>
+      <Command name="lsvdiskcopy" description="The lsvdiskcopy command lists VDisk (volume) copy information.">
+        <Response type="svc_concise" param="copy"/>
+        <ValueParam name="-filtervalue"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-bytes"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="vdisk" noName="true"/>
+      </Command>
+      <Command name="lsvdiskdependentmaps" description="The lsvdiskdependentmaps command displays all FlashCopy mappings with target virtual disks (VDisks) that are dependent upon data held on the specified VDisk.">
+        <Response type="svc_normal"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsvdiskextent" description="The lsvdiskextent command lists the MDisk extents that are provided for the specified VDisks.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-copy"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsvdiskfcmapcopies" description="The lsvdiskfcmapcopies command displays a list of all FlashCopy mappings with a target VDisk containing a valid copy of the specified VDisk.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsvdiskfcmappings" description="The lsvdiskfcmappings command displays a list of FlashCopy mappings to which the VDisk belongs. A VDisk can be part of up to 256 FlashCopy mappings.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsvdiskhostmap" description="Use the lsvdiskhostmap command to list the VDisk to the host mapping. These hosts have the specified virtual disk mapped to them; the virtual disk is visible to these hosts.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ParamChoice required="true">
+          <ValueParam name="vdisk" noName="true"/>
+          <ValueParam name="vdisk_id" noName="true"/>
+          <ValueParam name="vdisk_name" noName="true"/>
+        </ParamChoice>
+      </Command>
+      <Command name="lsvdisklba" description="The lsvdisklba command lists the VDisk (volume) and logical block address (LBA) for the specified MDisk LBA.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-mdisklba" required="true"/>
+        <ValueParam name="-mdisk" required="true" description="mdisk_id|mdisk_name"/>
+      </Command>
+      <Command name="lsvdiskmember" description="The lsvdiskmember command displays a list of MDisks that are members of the specified VDisk.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="-copy"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="vdisk" noName="true" required="true"/>
+      </Command>
+      <Command name="lsvdiskprogress" description="The lsvdiskprogress command tracks the progress during new virtual disk formatting.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="vdisk" noName="true"/>
+      </Command>
+      <Command name="lsvdisksyncprogress" description="The lsvdisksyncprogress command displays the progress of VDisk copy synchronization.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-copy"/>
+        <ValueParam name="vdisk" noName="true"/>
+      </Command>
+      <Command name="showtimezone" description="Use the showtimezone command to display the current time zone settings for the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+    </Executable>
+    <Executable name="svcservicemodetask">
+      <Command name="applysoftware" description="The applysoftware command upgrades the node to a new level of software.">
+        <Response type="svc_normal"/>
+        <FlagParam name="-ignore"/>
+        <ValueParam name="-file" required="true"/>
+      </Command>
+      <Command name="clean" description="This command allows you to clean the various dumps directories on    the node that is in service mode.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-prefix" description="directory|filefilter"/>
+      </Command>
+      <Command name="cleardumps" description="The cleardumps command cleans the various dump directories on the node that is in service mode.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-prefix" required="true"/>
+      </Command>
+      <Command name="dumperrlog" description="The dumperrlog command dumps the contents of the error log to a text file.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-prefix"/>
+      </Command>
+      <Command name="exit" description="The exit command exits service mode and restarts the node.">
+        <Response type="svc_normal"/>
+      </Command>
+      <Command name="cpfabricdumps" description="Use the cpfabricdumps command to copy dump files from a node that is visible on the fabric onto the current node.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-prefix" description="directory|file_filter"/>
+        <ValueParam name="-panelname"/>
+      </Command>
+    </Executable>
+    <Executable name="svcservicemodeinfo">
+      <Command name="ls2145dumps" description="The ls2145dumps command lists node assert dumps and associated output files that are located in the /dumps directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsauditlogdumps" description="lsauditlogdumps  Use the lsauditlogdumps command to list the audit log dumps that are available on the nodes in the cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lscimomdumps" description="The lscimomdumps command lists the dump files in the /dumps/cimom directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsclustervpd" description="The lsclustervpd command returns the vital product data (VPD) for the cluster to which the node belonged.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsclustervpd" description="The lsclustervpd command returns the vital product data (VPD) for the cluster to which the node belonged.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lserrlogdumps" description="The lserrlogdumps command lists the error log dump files in the /dumps/elogs directory, which are created when you run the svctask dumperrlog command.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsfeaturedumps" description="The lsfeaturedumps command lists the dump files in the /dumps/feature directory, which are created when you run the svctask dumpinternallog command.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsiostatsdumps" description="The lsiostatsdumps command lists the dump files in the /dumps/iostats directory, which are created when you run the svctask startstats command.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsiotracedumps" description="The lsiotracedumps command lists the files that are located in the /dumps/iotrace directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsmdiskdumps" description="The lsmdiskdumps command displays a list of dumps in the /dumps/mdisk directory.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true"/>
+      </Command>
+      <Command name="lsnodevpd" description="The lsnodevpd command returns the vital product data (VPD) for the specified node.">
+        <Response type="svc_nested_fields"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="node" noName="true" required="true"/>
+      </Command>
+      <Command name="lssoftwaredumps" description="The lssoftwaredumps command lists the software packages that are located in the /home/admin/upgrade directory.">
+        <Response type="svc_concise"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+      </Command>
+      <Command name="lsfabricdumps" description="Use the lsfabricdumps command to list all of the files in certain directories on a specified node.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-directory"/>
+        <ValueParam name="-delim"/>
+        <FlagParam name="-nohdr"/>
+        <ValueParam name="-panelname"/>
+      </Command>
+      <Command name="lsfabricvpd" description="Use the lsfabricvpd command to view vital product data (VPD) for a node or cluster.">
+        <Response type="svc_normal"/>
+        <ValueParam name="-cluster"/>
+        <ValueParam name="-delim"/>
+        <ValueParam name="nohdr" noName="true"/>
+        <ValueParam name="-panelname"/>
+      </Command>
+    </Executable>
+  </Commands>
+</ArraySyntax>
