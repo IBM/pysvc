@@ -11,6 +11,7 @@ from concurrent import futures
 from container.generated import storageagent_pb2
 from container.generated import storageagent_pb2_grpc
 from container.storage_agent_service.server import StorageAgent
+from container.storage_agent_service.storage_agent import clear_agents
 
 
 class TestServer(TestCase):
@@ -40,8 +41,9 @@ class TestServer(TestCase):
 
     def tearDown(self):
         self._server.stop(None)
+        clear_agents()
 
-    def _test_list_hosts(self):
+    def test_list_hosts(self):
         self.mock_client.svcinfo.lshost.return_value = [Munch(id="1", name="h1", status="online")]
         response = self._stub.ListHosts(
             storageagent_pb2.ListHostsRequest(
