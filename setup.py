@@ -23,7 +23,7 @@ setup(
     name='pysvc',
     version=pysvc.version,
     description="IBM Spectrum Virtualize Family Storage Python Client",
-    long_description="IBM Python SVC Client for Spectrum "
+    long_description="IBM Python CLI Client for Spectrum "
                      "Virtualize Family Storage.",
     author="Peng Wang",
     author_email="wangpww@cn.ibm.com",
