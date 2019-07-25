@@ -29,6 +29,11 @@ class StorageAgentStub(object):
         request_serializer=storageagent__pb2.ListHostsRequest.SerializeToString,
         response_deserializer=storageagent__pb2.ListHostsReply.FromString,
         )
+    self.ListIscsiTargets = channel.unary_unary(
+        '/storageagent.StorageAgent/ListIscsiTargets',
+        request_serializer=storageagent__pb2.ListIscsiTargetsRequest.SerializeToString,
+        response_deserializer=storageagent__pb2.ListIscsiTargetsReply.FromString,
+        )
 
 
 class StorageAgentServicer(object):
@@ -56,6 +61,13 @@ class StorageAgentServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def ListIscsiTargets(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_StorageAgentServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -73,6 +85,11 @@ def add_StorageAgentServicer_to_server(servicer, server):
           servicer.ListHosts,
           request_deserializer=storageagent__pb2.ListHostsRequest.FromString,
           response_serializer=storageagent__pb2.ListHostsReply.SerializeToString,
+      ),
+      'ListIscsiTargets': grpc.unary_unary_rpc_method_handler(
+          servicer.ListIscsiTargets,
+          request_deserializer=storageagent__pb2.ListIscsiTargetsRequest.FromString,
+          response_serializer=storageagent__pb2.ListIscsiTargetsReply.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

@@ -63,6 +63,21 @@ class StorageAgent(storageagent_pb2_grpc.StorageAgentServicer):
             )
         return storageagent_pb2.ListHostsReply(hosts=hosts)
 
+    def ListIscsiTargets(self, request, context):
+        user = request.secrets["username"]
+        password = request.secrets["password"]
+        endpoint = request.secrets["management_address"]
+
+        agent = get_agent(endpoint, user, password)
+        targets = []
+        for target in agent.get_iscsi_targets():
+            targets.append(
+                storageagent_pb2.IscsiTarget(
+                    address=target,
+                )
+            )
+        return storageagent_pb2.ListIscsiTargetsReply(targets=targets)
+
 
 def generate_server_config():
     config = {}

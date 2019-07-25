@@ -117,3 +117,16 @@ class StorageAgent(object):
             hosts = client.svcinfo.lshost(**cli_kwargs)
             logger.info("Listed host")
             return hosts
+
+    def get_iscsi_targets(self):
+        logger.info("Getting iscsi targets")
+        cli_kwargs = {'filtervalue': 'state=configured:failover=no'}
+        targets = []
+
+        with self.sshpool.item() as client:
+            port_ips = client.svcinfo.lsportip(**cli_kwargs)
+            for port_ip in port_ips:
+                if port_ip.IP_address:
+                    targets.append(port_ip.IP_address)
+            logger.info("Found iscsi targets {}".format(targets))
+            return targets

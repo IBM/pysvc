@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='storageagent',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x12storageagent.proto\x12\x0cstorageagent\"d\n\x04Host\x12\x12\n\nidentifier\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\r\n\x05\x61rray\x18\x04 \x01(\t\x12\x0c\n\x04iqns\x18\x05 \x03(\t\x12\r\n\x05wwpns\x18\x06 \x03(\t\"\xad\x01\n\x11\x43reateHostRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04iqns\x18\x02 \x03(\t\x12\r\n\x05wwpns\x18\x03 \x03(\t\x12=\n\x07secrets\x18\x04 \x03(\x0b\x32,.storageagent.CreateHostRequest.SecretsEntry\x1a.\n\x0cSecretsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"3\n\x0f\x43reateHostReply\x12 \n\x04host\x18\x01 \x01(\x0b\x32\x12.storageagent.Host\"\x90\x01\n\x11\x44\x65leteHostRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12=\n\x07secrets\x18\x04 \x03(\x0b\x32,.storageagent.DeleteHostRequest.SecretsEntry\x1a.\n\x0cSecretsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x11\n\x0f\x44\x65leteHostReply\"\x8e\x01\n\x10ListHostsRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12<\n\x07secrets\x18\x04 \x03(\x0b\x32+.storageagent.ListHostsRequest.SecretsEntry\x1a.\n\x0cSecretsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"3\n\x0eListHostsReply\x12!\n\x05hosts\x18\x01 \x03(\x0b\x32\x12.storageagent.Host2\xfb\x01\n\x0cStorageAgent\x12N\n\nCreateHost\x12\x1f.storageagent.CreateHostRequest\x1a\x1d.storageagent.CreateHostReply\"\x00\x12N\n\nDeleteHost\x12\x1f.storageagent.DeleteHostRequest\x1a\x1d.storageagent.DeleteHostReply\"\x00\x12K\n\tListHosts\x12\x1e.storageagent.ListHostsRequest\x1a\x1c.storageagent.ListHostsReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x12storageagent.proto\x12\x0cstorageagent\"d\n\x04Host\x12\x12\n\nidentifier\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\r\n\x05\x61rray\x18\x04 \x01(\t\x12\x0c\n\x04iqns\x18\x05 \x03(\t\x12\r\n\x05wwpns\x18\x06 \x03(\t\"+\n\x0bIscsiTarget\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0b\n\x03iqn\x18\x02 \x01(\t\"\xad\x01\n\x11\x43reateHostRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04iqns\x18\x02 \x03(\t\x12\r\n\x05wwpns\x18\x03 \x03(\t\x12=\n\x07secrets\x18\x04 \x03(\x0b\x32,.storageagent.CreateHostRequest.SecretsEntry\x1a.\n\x0cSecretsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"3\n\x0f\x43reateHostReply\x12 \n\x04host\x18\x01 \x01(\x0b\x32\x12.storageagent.Host\"\x90\x01\n\x11\x44\x65leteHostRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12=\n\x07secrets\x18\x02 \x03(\x0b\x32,.storageagent.DeleteHostRequest.SecretsEntry\x1a.\n\x0cSecretsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x11\n\x0f\x44\x65leteHostReply\"\x8e\x01\n\x10ListHostsRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12<\n\x07secrets\x18\x02 \x03(\x0b\x32+.storageagent.ListHostsRequest.SecretsEntry\x1a.\n\x0cSecretsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"3\n\x0eListHostsReply\x12!\n\x05hosts\x18\x01 \x03(\x0b\x32\x12.storageagent.Host\"\x8e\x01\n\x17ListIscsiTargetsRequest\x12\x43\n\x07secrets\x18\x01 \x03(\x0b\x32\x32.storageagent.ListIscsiTargetsRequest.SecretsEntry\x1a.\n\x0cSecretsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"C\n\x15ListIscsiTargetsReply\x12*\n\x07targets\x18\x01 \x03(\x0b\x32\x19.storageagent.IscsiTarget2\xdd\x02\n\x0cStorageAgent\x12N\n\nCreateHost\x12\x1f.storageagent.CreateHostRequest\x1a\x1d.storageagent.CreateHostReply\"\x00\x12N\n\nDeleteHost\x12\x1f.storageagent.DeleteHostRequest\x1a\x1d.storageagent.DeleteHostReply\"\x00\x12K\n\tListHosts\x12\x1e.storageagent.ListHostsRequest\x1a\x1c.storageagent.ListHostsReply\"\x00\x12`\n\x10ListIscsiTargets\x12%.storageagent.ListIscsiTargetsRequest\x1a#.storageagent.ListIscsiTargetsReply\"\x00\x62\x06proto3')
 )
 
 
@@ -92,6 +92,44 @@ _HOST = _descriptor.Descriptor(
 )
 
 
+_ISCSITARGET = _descriptor.Descriptor(
+  name='IscsiTarget',
+  full_name='storageagent.IscsiTarget',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='address', full_name='storageagent.IscsiTarget.address', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='iqn', full_name='storageagent.IscsiTarget.iqn', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=138,
+  serialized_end=181,
+)
+
+
 _CREATEHOSTREQUEST_SECRETSENTRY = _descriptor.Descriptor(
   name='SecretsEntry',
   full_name='storageagent.CreateHostRequest.SecretsEntry',
@@ -125,8 +163,8 @@ _CREATEHOSTREQUEST_SECRETSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=266,
-  serialized_end=312,
+  serialized_start=311,
+  serialized_end=357,
 )
 
 _CREATEHOSTREQUEST = _descriptor.Descriptor(
@@ -176,8 +214,8 @@ _CREATEHOSTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=139,
-  serialized_end=312,
+  serialized_start=184,
+  serialized_end=357,
 )
 
 
@@ -207,8 +245,8 @@ _CREATEHOSTREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=314,
-  serialized_end=365,
+  serialized_start=359,
+  serialized_end=410,
 )
 
 
@@ -245,8 +283,8 @@ _DELETEHOSTREQUEST_SECRETSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=266,
-  serialized_end=312,
+  serialized_start=311,
+  serialized_end=357,
 )
 
 _DELETEHOSTREQUEST = _descriptor.Descriptor(
@@ -265,7 +303,7 @@ _DELETEHOSTREQUEST = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='secrets', full_name='storageagent.DeleteHostRequest.secrets', index=1,
-      number=4, type=11, cpp_type=10, label=3,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -282,8 +320,8 @@ _DELETEHOSTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=368,
-  serialized_end=512,
+  serialized_start=413,
+  serialized_end=557,
 )
 
 
@@ -306,8 +344,8 @@ _DELETEHOSTREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=514,
-  serialized_end=531,
+  serialized_start=559,
+  serialized_end=576,
 )
 
 
@@ -344,8 +382,8 @@ _LISTHOSTSREQUEST_SECRETSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=266,
-  serialized_end=312,
+  serialized_start=311,
+  serialized_end=357,
 )
 
 _LISTHOSTSREQUEST = _descriptor.Descriptor(
@@ -364,7 +402,7 @@ _LISTHOSTSREQUEST = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='secrets', full_name='storageagent.ListHostsRequest.secrets', index=1,
-      number=4, type=11, cpp_type=10, label=3,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -381,8 +419,8 @@ _LISTHOSTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=534,
-  serialized_end=676,
+  serialized_start=579,
+  serialized_end=721,
 )
 
 
@@ -412,8 +450,107 @@ _LISTHOSTSREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=678,
-  serialized_end=729,
+  serialized_start=723,
+  serialized_end=774,
+)
+
+
+_LISTISCSITARGETSREQUEST_SECRETSENTRY = _descriptor.Descriptor(
+  name='SecretsEntry',
+  full_name='storageagent.ListIscsiTargetsRequest.SecretsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='storageagent.ListIscsiTargetsRequest.SecretsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='storageagent.ListIscsiTargetsRequest.SecretsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=311,
+  serialized_end=357,
+)
+
+_LISTISCSITARGETSREQUEST = _descriptor.Descriptor(
+  name='ListIscsiTargetsRequest',
+  full_name='storageagent.ListIscsiTargetsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='secrets', full_name='storageagent.ListIscsiTargetsRequest.secrets', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_LISTISCSITARGETSREQUEST_SECRETSENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=777,
+  serialized_end=919,
+)
+
+
+_LISTISCSITARGETSREPLY = _descriptor.Descriptor(
+  name='ListIscsiTargetsReply',
+  full_name='storageagent.ListIscsiTargetsReply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='targets', full_name='storageagent.ListIscsiTargetsReply.targets', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=921,
+  serialized_end=988,
 )
 
 _CREATEHOSTREQUEST_SECRETSENTRY.containing_type = _CREATEHOSTREQUEST
@@ -424,13 +561,19 @@ _DELETEHOSTREQUEST.fields_by_name['secrets'].message_type = _DELETEHOSTREQUEST_S
 _LISTHOSTSREQUEST_SECRETSENTRY.containing_type = _LISTHOSTSREQUEST
 _LISTHOSTSREQUEST.fields_by_name['secrets'].message_type = _LISTHOSTSREQUEST_SECRETSENTRY
 _LISTHOSTSREPLY.fields_by_name['hosts'].message_type = _HOST
+_LISTISCSITARGETSREQUEST_SECRETSENTRY.containing_type = _LISTISCSITARGETSREQUEST
+_LISTISCSITARGETSREQUEST.fields_by_name['secrets'].message_type = _LISTISCSITARGETSREQUEST_SECRETSENTRY
+_LISTISCSITARGETSREPLY.fields_by_name['targets'].message_type = _ISCSITARGET
 DESCRIPTOR.message_types_by_name['Host'] = _HOST
+DESCRIPTOR.message_types_by_name['IscsiTarget'] = _ISCSITARGET
 DESCRIPTOR.message_types_by_name['CreateHostRequest'] = _CREATEHOSTREQUEST
 DESCRIPTOR.message_types_by_name['CreateHostReply'] = _CREATEHOSTREPLY
 DESCRIPTOR.message_types_by_name['DeleteHostRequest'] = _DELETEHOSTREQUEST
 DESCRIPTOR.message_types_by_name['DeleteHostReply'] = _DELETEHOSTREPLY
 DESCRIPTOR.message_types_by_name['ListHostsRequest'] = _LISTHOSTSREQUEST
 DESCRIPTOR.message_types_by_name['ListHostsReply'] = _LISTHOSTSREPLY
+DESCRIPTOR.message_types_by_name['ListIscsiTargetsRequest'] = _LISTISCSITARGETSREQUEST
+DESCRIPTOR.message_types_by_name['ListIscsiTargetsReply'] = _LISTISCSITARGETSREPLY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Host = _reflection.GeneratedProtocolMessageType('Host', (_message.Message,), {
@@ -439,6 +582,13 @@ Host = _reflection.GeneratedProtocolMessageType('Host', (_message.Message,), {
   # @@protoc_insertion_point(class_scope:storageagent.Host)
   })
 _sym_db.RegisterMessage(Host)
+
+IscsiTarget = _reflection.GeneratedProtocolMessageType('IscsiTarget', (_message.Message,), {
+  'DESCRIPTOR' : _ISCSITARGET,
+  '__module__' : 'storageagent_pb2'
+  # @@protoc_insertion_point(class_scope:storageagent.IscsiTarget)
+  })
+_sym_db.RegisterMessage(IscsiTarget)
 
 CreateHostRequest = _reflection.GeneratedProtocolMessageType('CreateHostRequest', (_message.Message,), {
 
@@ -506,10 +656,33 @@ ListHostsReply = _reflection.GeneratedProtocolMessageType('ListHostsReply', (_me
   })
 _sym_db.RegisterMessage(ListHostsReply)
 
+ListIscsiTargetsRequest = _reflection.GeneratedProtocolMessageType('ListIscsiTargetsRequest', (_message.Message,), {
+
+  'SecretsEntry' : _reflection.GeneratedProtocolMessageType('SecretsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _LISTISCSITARGETSREQUEST_SECRETSENTRY,
+    '__module__' : 'storageagent_pb2'
+    # @@protoc_insertion_point(class_scope:storageagent.ListIscsiTargetsRequest.SecretsEntry)
+    })
+  ,
+  'DESCRIPTOR' : _LISTISCSITARGETSREQUEST,
+  '__module__' : 'storageagent_pb2'
+  # @@protoc_insertion_point(class_scope:storageagent.ListIscsiTargetsRequest)
+  })
+_sym_db.RegisterMessage(ListIscsiTargetsRequest)
+_sym_db.RegisterMessage(ListIscsiTargetsRequest.SecretsEntry)
+
+ListIscsiTargetsReply = _reflection.GeneratedProtocolMessageType('ListIscsiTargetsReply', (_message.Message,), {
+  'DESCRIPTOR' : _LISTISCSITARGETSREPLY,
+  '__module__' : 'storageagent_pb2'
+  # @@protoc_insertion_point(class_scope:storageagent.ListIscsiTargetsReply)
+  })
+_sym_db.RegisterMessage(ListIscsiTargetsReply)
+
 
 _CREATEHOSTREQUEST_SECRETSENTRY._options = None
 _DELETEHOSTREQUEST_SECRETSENTRY._options = None
 _LISTHOSTSREQUEST_SECRETSENTRY._options = None
+_LISTISCSITARGETSREQUEST_SECRETSENTRY._options = None
 
 _STORAGEAGENT = _descriptor.ServiceDescriptor(
   name='StorageAgent',
@@ -517,8 +690,8 @@ _STORAGEAGENT = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=732,
-  serialized_end=983,
+  serialized_start=991,
+  serialized_end=1340,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateHost',
@@ -545,6 +718,15 @@ _STORAGEAGENT = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_LISTHOSTSREQUEST,
     output_type=_LISTHOSTSREPLY,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ListIscsiTargets',
+    full_name='storageagent.StorageAgent.ListIscsiTargets',
+    index=3,
+    containing_service=None,
+    input_type=_LISTISCSITARGETSREQUEST,
+    output_type=_LISTISCSITARGETSREPLY,
     serialized_options=None,
   ),
 ])
