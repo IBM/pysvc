@@ -1,4 +1,4 @@
-# IBM SVCCLI Python Client
+# IBM SVC Python Client
 
 This repository contains the SVC Python client (PYSVC), which establishes terminal connection with IBM Spectrum Virtualize storage systems. The Python client protocol enables full management and monitoring of these storage arrays by issuing dedicated command-line interface (CLI) commands.
 
