@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+//option java_multiple_files = true;
+//option java_package = "io.grpc.examples.helloworld";
+//option java_outer_classname = "HelloWorldProto";
+//option objc_class_prefix = "HLW";
+
+package storageagent;
+
+// The storage agent service definition.
+service StorageAgent {
+  // Define a host on storage side.
+  rpc CreateHost (CreateHostRequest) returns (CreateHostReply) {}
+  rpc DeleteHost (DeleteHostRequest) returns (DeleteHostReply) {}
+  rpc ListHosts (ListHostsRequest) returns (ListHostsReply) {}
+  rpc ListIscsiTargets (ListIscsiTargetsRequest) returns (ListIscsiTargetsReply) {}
+}
+
+// Information about a specific host.
+message Host {
+  string identifier = 1;
+  string name = 2;
+  string status = 3;
+  string array = 4;
+  repeated string iqns = 5;
+  repeated string wwpns = 6;
+}
+
+// Information about a specific iscsi target, including ip and iqn,
+// but only ip is mandatory since iqn can be discovered by iscsiadm.
+message IscsiTarget {
+  string address = 1;
+  string iqn = 2;
+}
+
+message CreateHostRequest {
+  string name = 1;
+  repeated string iqns = 2;
+  repeated string wwpns = 3;
+  map<string, string> secrets = 4;
+}
+
+message CreateHostReply {
+  Host host = 1;
+}
+
+message DeleteHostRequest {
+  string name = 1;
+  map<string, string> secrets = 2;
+}
+
+message DeleteHostReply {
+  // Intentionally empty.
+}
+
+message ListHostsRequest {
+  // The name of the host. This field is OPTIONAL.
+  // If not specified, return all.
+  string name = 1;
+  map<string, string> secrets = 2;
+}
+
+message ListHostsReply {
+  repeated Host hosts = 1;
+}
+
+message ListIscsiTargetsRequest {
+  map<string, string> secrets = 1;
+}
+
+message ListIscsiTargetsReply {
+  repeated IscsiTarget targets = 1;
+}
