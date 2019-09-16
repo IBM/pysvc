@@ -22,8 +22,8 @@ install_requires = ['munch', 'paramiko']
 setup(
     name='pysvc',
     version=pysvc.version,
-    description="IBM Spectrum Virtualize Family Storage Python Client",
-    long_description="IBM Python CLI Client for Spectrum "
+    description="IBM Spectrum Virtualize Python Client",
+    long_description="CLI Python Client for IBM Spectrum "
                      "Virtualize Family Storage.",
     author="Peng Wang",
     author_email="wangpww@cn.ibm.com",
