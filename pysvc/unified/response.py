@@ -97,6 +97,8 @@ class CLIResponse(object):
             stdout, stderr = resp
         if isinstance(stdout, bytes):
             stdout = stdout.decode()
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode()
         stdout = stdout.lstrip()  # remove starting space to work with csv
         stdoutlines = stdout.splitlines()
 
@@ -104,10 +106,10 @@ class CLIResponse(object):
         error_tag = kwargs.get('error_tag', '')
         if error_tag:
             for line in stdoutlines:
-                idx = line.find(error_tag.encode())
+                idx = line.find(error_tag)
                 if idx >= 0:
                     rc = ' '.join(
-                        tk for tk in line[idx + len(error_tag):].decode().split()
+                        tk for tk in line[idx + len(error_tag):].split()
                         if tk.isdigit() or tk.startswith('-')
                         and tk[1:].isdigit())
                     try:
@@ -117,7 +119,7 @@ class CLIResponse(object):
                         returnCode = -1
                     raise CLIFailureError(
                         'CLI failure. Return code is %s. '
-                        'Error message is "%s"' % (rc, stderr.decode()),
+                        'Error message is "%s"' % (rc, stderr),
                         returnCode=returnCode)
 
         delim = kwargs.get('delim', DEFAULT_DELIM)
@@ -193,6 +195,10 @@ class svcinfo_lsroute_response(SVCResponse):
             stdout, stderr = resp, ''
         else:
             stdout, stderr = resp
+        if isinstance(stdout, bytes):
+            stdout = stdout.decode()
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode()
         if not kwargs.get('delim', None):
             kwargs['delim'] = ' '
 
@@ -224,6 +230,10 @@ class svctask_metadata_entry_response(SVCResponse):
             stdout, stderr = resp, ''
         else:
             stdout, stderr = resp
+        if isinstance(stdout, bytes):
+            stdout = stdout.decode()
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode()
         stdout = stdout.lstrip()  # remove starting space to work with csv
         stdoutlines = stdout.splitlines()
 
@@ -231,15 +241,15 @@ class svctask_metadata_entry_response(SVCResponse):
         error_tag = kwargs.get('error_tag', '')
         if error_tag:
             for line in stdoutlines:
-                idx = line.find(error_tag.encode())
+                idx = line.find(error_tag)
                 if idx >= 0:
                     rc = ' '.join(tk for tk in
-                                  line[idx + len(error_tag):].decode().split() if
+                                  line[idx + len(error_tag):].split() if
                                   tk.isdigit() or tk.startswith('-')
                                   and tk[1:].isdigit())
                     raise CLIFailureError(
                         'CLI failure. Return code is %s. Error message '
-                        'is "%s"' % (rc, stderr.decode()), returnCode=int(rc))
+                        'is "%s"' % (rc, stderr), returnCode=int(rc))
 
         # start to deal with raw response
         result = []
@@ -263,6 +273,10 @@ class svctask_metadata_entry_list_response(SVCResponse):
             stdout, stderr = resp, ''
         else:
             stdout, stderr = resp
+        if isinstance(stdout, bytes):
+            stdout = stdout.decode()
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode()
         stdout = stdout.lstrip()  # remove starting space to work with csv
         stdoutlines = stdout.splitlines()
 
@@ -270,15 +284,15 @@ class svctask_metadata_entry_list_response(SVCResponse):
         error_tag = kwargs.get('error_tag', '')
         if error_tag:
             for line in stdoutlines:
-                idx = line.find(error_tag.encode())
+                idx = line.find(error_tag)
                 if idx >= 0:
                     rc = ' '.join(tk for tk in
-                                  line[idx + len(error_tag):].decode().split()
+                                  line[idx + len(error_tag):].split()
                                   if tk.isdigit() or tk.startswith('-')
                                   and tk[1:].isdigit())
                     raise CLIFailureError(
                         'CLI failure. Return code is %s. Error message '
-                        'is "%s"' % (rc, stderr.decode()), returnCode=int(rc))
+                        'is "%s"' % (rc, stderr), returnCode=int(rc))
 
         # start to deal with raw response
         result = []
@@ -306,6 +320,10 @@ class svcinfo_lsmetadatavdisk_response(SVCResponse):
             stdout, stderr = resp, ''
         else:
             stdout, stderr = resp
+        if isinstance(stdout, bytes):
+            stdout = stdout.decode()
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode()
         stdout = stdout.lstrip()  # remove starting space to work with csv
         stdoutlines = stdout.splitlines()
 
@@ -313,15 +331,15 @@ class svcinfo_lsmetadatavdisk_response(SVCResponse):
         error_tag = kwargs.get('error_tag', '')
         if error_tag:
             for line in stdoutlines:
-                idx = line.find(error_tag.encode())
+                idx = line.find(error_tag)
                 if idx >= 0:
                     rc = ' '.join(tk for tk in
-                                  line[idx + len(error_tag):].decode().split() if
+                                  line[idx + len(error_tag):].split() if
                                   tk.isdigit() or tk.startswith('-')
                                   and tk[1:].isdigit())
                     raise CLIFailureError(
                         'CLI failure. Return code is %s. Error message '
-                        'is "%s"' % (rc, stderr.decode()), returnCode=int(rc))
+                        'is "%s"' % (rc, stderr), returnCode=int(rc))
 
         # start to deal with raw response
         result = []
@@ -337,6 +355,10 @@ class svctask_metadata_db_list_response(SVCResponse):
             stdout, stderr = resp, ''
         else:
             stdout, stderr = resp
+        if isinstance(stdout, bytes):
+            stdout = stdout.decode()
+        if isinstance(stderr, bytes):
+            stderr = stderr.decode()
         stdout = stdout.lstrip()  # remove starting space to work with csv
         stdoutlines = stdout.splitlines()
 
@@ -344,15 +366,15 @@ class svctask_metadata_db_list_response(SVCResponse):
         error_tag = kwargs.get('error_tag', '')
         if error_tag:
             for line in stdoutlines:
-                idx = line.find(error_tag.encode())
+                idx = line.find(error_tag)
                 if idx >= 0:
                     rc = ' '.join(tk for tk in
-                                  line[idx + len(error_tag):].decode().split() if
+                                  line[idx + len(error_tag):].split() if
                                   tk.isdigit() or tk.startswith('-') and
                                   tk[1:].isdigit())
                     raise CLIFailureError(
                         'CLI failure. Return code is %s. Error message '
-                        'is "%s"' % (rc, stderr.decode()), returnCode=int(rc))
+                        'is "%s"' % (rc, stderr), returnCode=int(rc))
 
         result = []
         try:
