@@ -428,11 +428,11 @@ class MySniffer(csv.Sniffer):
         coltypes = {}
         rows = [row for row in rdr if len(row) == columns][:20]
         for col in range(columns):
-            if len(set(len(row[col]) for row in rows)
-                   ) == 1:  # all cells in column have same length
-                coltypes[col] = len(rows[0][col])
-            elif all(is_numeric(row[col]) for row in rows):
+            if all(is_numeric(row[col]) for row in rows):
                 coltypes[col] = int
+            elif len(set(len(row[col]) for row in rows)
+                     ) == 1:  # all cells in column have same length
+                coltypes[col] = len(rows[0][col])
         hasHeader = 0
         for col, tp in list(coltypes.items()):
             if tp is int:
