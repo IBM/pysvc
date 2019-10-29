@@ -32,6 +32,8 @@ import pysvc.unified.client as uc
 import pysvc.unified.clispec as ucs
 import pysvc.unified.response as ucr
 from pysvc.unified.response import MySniffer
+from pysvc.unified.client import UnifiedSSHClient
+from pysvc.unified import client
 from .testdata import *
 
 ADDR_SVC = '9.115.246.103'
@@ -76,16 +78,16 @@ class TestUnifiedSSHClient(TestCase):
 
     def setUp(self):
         self.ssh_transport_patcher = mock.patch(
-            r'pysvc.pysvc.unified.tests.'
+            r'pysvc.unified.tests.'
             r'test_unified_client.client.SSHTransport')
         self.ssh_transport_patcher.start()
         self.set_specification_patcher = mock.patch(
-            r'pysvc.pysvc.unified.tests.test_unified_client.client.'
+            r'pysvc.unified.tests.test_unified_client.client.'
             r'set_specification'
         )
         self.set_specification_patcher.start()
         self.check_device_type_patcher = mock.patch(
-            r'pysvc.pysvc.unified.tests.test_unified_client.client.'
+            r'pysvc.unified.tests.test_unified_client.client.'
             r'check_device_type')
         self.check_device_type_patcher.start()
         self.conn = connect(
@@ -98,6 +100,19 @@ class TestUnifiedSSHClient(TestCase):
         self.ssh_transport_patcher.stop()
         self.set_specification_patcher.stop()
         self.check_device_type_patcher.stop()
+
+    @mock.patch.object(UnifiedSSHClient, 'get_dump', mock.MagicMock(
+        return_value=r'<test></test>'))
+    @attr("integration_test")
+    def test_get_dump_element_tree(self):
+        res = self.conn.get_dump_element_tree(r'test path')
+        self.assertEqual(res.getroot().tag, r'test')
+
+    @mock.patch('pysvc.unified.tests.test_unified_client.client.ScpClient')
+    @attr("integration_test")
+    def test_get_dump(self, scp_client_mock):
+        self.conn.get_dump(r'test path')
+        scp_client_mock.return_value.receive.assert_called_with(r'test path')
 
 
 class TestUnifiedSSHClientSVC(TestCase, TestUtilMixin):

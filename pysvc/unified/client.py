@@ -26,6 +26,8 @@ from pysvc.messages import UnifiedMessages
 from pysvc.transports.ssh_transport import SSHTransport
 from pysvc.unified.clispec import parse
 from pysvc import PYSVC_DEFAULT_LOGGER
+from .scp_cli_client import ScpClient
+from pyne.xmlutils import etree, XMLException
 
 __all__ = ['connect']
 
@@ -90,6 +92,34 @@ class UnifiedSSHClient(object):
         '''
         return (self.specification.array_type,
                 self.specification.array_infos) if self.specification else None
+
+    def get_dump_element_tree(self, remote_path, timeout=None):
+        """
+        get the element tree of xml remote_path specified
+        :param remote_path: full path on the SVC,
+               e.g. /dumps/iostats/Nn_stats_151240_151120_162817
+        :param timeout: int, the timeout of the session
+        :return: ElementTree
+        """
+        raw_xml = self.get_dump(remote_path, timeout)
+        try:
+            return etree.parse(StringIO(raw_xml))
+        except XMLException as ex:
+            err_msg = (r'The dump file context is not valid XML: {}'
+                       .format(raw_xml))
+            xlog.error(err_msg)
+            raise ex(err_msg)
+
+    def get_dump(self, remote_path, timeout=None):
+        """
+        :param remote_path: full path on the SVC,
+               e.g. /dumps/iostats/Nn_stats_151240_151120_162817
+        :param timeout: int, the timeout of the session
+        :return: str, the context of the file
+        """
+        scp_client = ScpClient(self.transport.transport.get_transport(),
+                               timeout)
+        return scp_client.receive(remote_path)
 
     def __getattr__(self, name):
         obj = getattr(self.specification, name, None)
