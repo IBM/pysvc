@@ -89,7 +89,7 @@ class ScpClient(object):
         :return: str, the receive context
         """
         try:
-            return channel.recv(buf_size)
+            return channel.recv(buf_size).decode()
         except _SocketTimeout:
             raise SCPTimeoutError('Timeout waiting for scp response')
 
