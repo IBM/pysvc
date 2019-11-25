@@ -20,6 +20,14 @@ pysvc.unified.helpers.xml\_util module
    :undoc-members:
    :show-inheritance:
 
+pysvc.unified.helpers.etree module
+--------------------------------------
+
+.. automodule:: pysvc.unified.helpers.etree
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

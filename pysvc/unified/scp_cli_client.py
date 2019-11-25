@@ -1,6 +1,6 @@
 from socket import timeout as _SocketTimeout
 from contextlib import closing
-from .errors import *
+from pysvc.unified.errors import SCPError, SCPTimeoutError
 
 MSG_PART = 3
 SIZE_INDEX = 1

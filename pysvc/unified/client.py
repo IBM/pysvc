@@ -27,7 +27,8 @@ from pysvc.transports.ssh_transport import SSHTransport
 from pysvc.unified.clispec import parse
 from pysvc import PYSVC_DEFAULT_LOGGER
 from .scp_cli_client import ScpClient
-from pyne.xmlutils import etree, XMLException
+from pysvc.unified.helpers import etree
+from pysvc.unified.helpers.xml_util import XMLException
 
 __all__ = ['connect']
 

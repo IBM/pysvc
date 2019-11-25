@@ -36,7 +36,7 @@ from pysvc.unified.client import UnifiedSSHClient
 from pysvc.unified import client
 from .testdata import *
 
-ADDR_SVC = '9.115.246.103'
+ADDR_SVC = '9.115.247.60'
 TEST_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -120,7 +120,7 @@ class TestUnifiedSSHClientSVC(TestCase, TestUtilMixin):
     @mock.patch.object(uc, 'yield_device_type', mock.Mock(
         return_value=[('svc', '6.2')]))
     def setUp(self):
-        self.conn = connect(ADDR_SVC, username='tester', password='passw0rd')
+        self.conn = connect(ADDR_SVC, username='testuser', password='passw0rd')
 
     def tearDown(self):
         self.conn.close()
@@ -161,16 +161,16 @@ class TestUnifiedSSHClientSVC(TestCase, TestUtilMixin):
     @attr("integration_test")
     def test_device_type(self):
         self.tearDown()
-        self.conn = connect(ADDR_SVC, username='tester', password='passw0rd')
+        self.conn = connect(ADDR_SVC, username='testuser', password='passw0rd')
         self.assertTrue(self.conn)
         self.assertRaisesEx(uc.IncorrectDeviceTypeError, connect, ADDR_SVC,
-                            username='tester', password="passw0rd",
+                            username='testuser', password="passw0rd",
                             device_type='storwize')
 
     @attr("integration_test")
     def test_set_specification(self):
         self.tearDown()
-        self.conn = connect(ADDR_SVC, username='tester', password='passw0rd')
+        self.conn = connect(ADDR_SVC, username='testuser', password='passw0rd')
         self.assertTrue(list(self.conn.svcinfo.lscluster()))
         self.assertTrue(list(self.conn.svcinfo.lsuser()))
         self.assertTrue(list(self.conn.svcinfo.lsmdiskgrp()))
@@ -184,9 +184,9 @@ class TestUnifiedSSHClientSVC(TestCase, TestUtilMixin):
             self.conn.svcinfo.lscluster(cluster='never_exists')
         except ucr.CLIFailureError as ex:
             expect_ = 'CLI failure. Return code is 1. Error message ' \
-                      'is "b\'CMMVC5804E The action failed because an ' \
+                      'is "CMMVC5804E The action failed because an ' \
                       'object that was specified in the command does ' \
-                      'not exist.\\n\'"'
+                      'not exist.\n"'
             self.assertEqual(expect_, ex.my_message)
             return
         self.assertTrue(False, 'No exception raised.')
@@ -201,6 +201,7 @@ class TestUnifiedSSHClientSVC(TestCase, TestUtilMixin):
 
     @attr("integration_test")
     def test_doc(self):
+        self.maxDiff = None
         expect_ = r'''Help on svcinfo(**kwargs): 
 It is wrapper for CLI "svcinfo".'''
         self.assertEqual(expect_, self.conn.svcinfo.__doc__)
@@ -234,7 +235,6 @@ Parameters:
 	autoexpand:
 	blocksize:
 	cache: readwrite|none.
-	deduplicated:
 	easytier: on|off.
 	iogrp:
 	mdisk:
