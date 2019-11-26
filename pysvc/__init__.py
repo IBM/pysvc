@@ -21,7 +21,7 @@ IBM SVC CLI Client Module
 """
 PYSVC_DEFAULT_LOGGER = "pysvc"
 
-version_tuple = (1, 1, 0)
+version_tuple = (1, 1, 2)
 
 
 def get_version_string():
