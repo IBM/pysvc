@@ -538,7 +538,7 @@ def escape_shell_arg(data):
 
 
 def etree_iterchildren(element, tag=None):
-    for ch in element.getchildren():
+    for ch in list(element):
         if tag and tag == ch.tag:
             yield ch
 
