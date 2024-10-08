@@ -1,0 +1,35 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pysvc2"
+version = "1.0.0"
+description = "IBM Spectrum Virtualize Family Storage Python Client, Next gen"
+readme = "readme.md"
+authors = [{ name = "Peng Wang", email = "wangpww@cn.ibm.com" }, { name = "Uri Ziv", email = "uri.ziv1@ibm.com" }, { name = "Shlomit Neufeld", email = "shlomitn@il.ibm.com" }]
+#license = "Apache License, Version 2.0"
+license = { file = "LICENSE" }
+classifiers = [
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
+        'Environment :: Console',
+        'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3.9',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+]
+
+keywords = ["IBM", "Spectrum Virtualize Family Storage"]
+dependencies = [
+        "munch >= 2.3.2",
+        "paramiko >= 3.5.0",
+]
+
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://github.com/IBM/pysvc2"
