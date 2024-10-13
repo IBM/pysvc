@@ -39,7 +39,7 @@ IBM FlashSystem V9000 on IBM Knowledge Center: http://ibm.com/support/knowledgec
 5.	Refer to **Host commands** and to all subsequent chapters.
 
 ## Contributing
-We do not accept any contributions at the moment. This may change in the future, so you can fork, clone, and suggest a pull request.
+Since October 2024, we started to publish new pypi versions to pysvc2 v2.0.0.
 
 ## Running tests
 Use nosetests command to run a test.
