@@ -20,10 +20,6 @@ To display the full CLI Reference Guide of a specific storage system and a speci
 
 IBM SAN Volume Controller on IBM Knowledge Center: http://www.ibm.com/support/knowledgecenter/STPVGU
 
-IBM Storwize V3500 on IBM Knowledge Center: http://ibm.com/support/knowledgecenter/STLM6B
-
-IBM Storwize V3700 on IBM Knowledge Center: http://ibm.com/support/knowledgecenter/STLM5A
-
 IBM Storwize V5000 on IBM Knowledge Center: http://ibm.com/support/knowledgecenter/STHGUJ
 
 IBM Storwize V7000 on IBM Knowledge Center: http://ibm.com/support/knowledgecenter/ST3FR7
@@ -32,17 +28,11 @@ IBM Storwize V7000 Unified on IBM Knowledge Center: http://ibm.com/support/knowl
 
 IBM FlashSystem V9000 on IBM Knowledge Center: http://ibm.com/support/knowledgecenter/STKMQV
 
-2. On the welcome page, select a storage system software version. For example, select **Version 8.2.1**.
+2. On the welcome page, select a storage system software version.
 
-![Software version](https://github.com/IBM/pysvc/blob/master/images/1.jpg)
+3. If needed, expand the **Table of contents** tab.
 
-The welcome page of the selected software version is displayed.
-
-3. If needed, select the **Table of contents** tab.
-
-![Table of contents](https://github.com/IBM/pysvc/blob/master/images/2.jpg)
-
-4. On the table of contents, click **Command-line interface**.
+4. On the table of contents, on the left hand side, click **Command-line interface**. (If this doesn't appear, type Command-Line interface in the filter tab.)
 
 ![CLI interface](https://github.com/IBM/pysvc/blob/master/images/3.jpg)
 
