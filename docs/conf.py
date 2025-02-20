@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'IBM Storage'
-copyright = '2012-2019 IBM'
+copyright = '2012-2025 IBM'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -240,7 +240,7 @@ texinfo_documents = [ ('index', 'pysvc', 'pysvc Documentation',
 epub_title = 'pysvc'
 epub_author = 'Author'
 epub_publisher = 'Author'
-epub_copyright = '2019, Author'
+epub_copyright = '2025, Author'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
