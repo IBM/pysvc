@@ -19,3 +19,8 @@ Changes in Version 2.0.1
 
 * Update paramiko to version 3.5.1
 
+
+Changes in Version 2.0.2
+------------------------
+
+* Update munch to version 4.0.0
