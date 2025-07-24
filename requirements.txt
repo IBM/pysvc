@@ -1,2 +1,2 @@
-munch==2.3.2
+munch==4.0.0
 paramiko==3.5.1
