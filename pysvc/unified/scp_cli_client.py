@@ -16,7 +16,7 @@ class ScpClient(object):
         """
         :param transport: ssh transport, e.g.
                 client = paramiko.SSHClient()
-                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                client.set_missing_host_key_policy(FIPSSafeAutoAddPolicy())
                 client.connect(hostname, username=username, password=password)
                 self.transport = client.get_transport()
         :param timeout: int, timeout for ssh session

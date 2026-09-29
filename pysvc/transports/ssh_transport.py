@@ -35,6 +35,7 @@ from pysvc.errors import UnableToConnectException
 from logging import getLogger
 from contextlib import contextmanager
 from pysvc import PYSVC_DEFAULT_LOGGER
+import hashlib
 import paramiko
 import socket
 import os
@@ -43,6 +44,25 @@ warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 
 xlog = getLogger(PYSVC_DEFAULT_LOGGER)
+
+
+class FIPSSafeAutoAddPolicy(paramiko.MissingHostKeyPolicy):
+    """
+    AutoAddPolicy compatible with FIPS-enabled environments.
+    Adds unknown host keys to the client's host keys repository without invoking
+    legacy MD5 get_fingerprint(), which fails under FIPS OpenSSL enforcement.
+    """
+
+    def missing_host_key(self, client, hostname, key):
+        client._host_keys.add(hostname, key.get_name(), key)
+        if client._host_keys_filename is not None:
+            client.save_host_keys(client._host_keys_filename)
+        try:
+            fp_sha256 = hashlib.sha256(key.asbytes()).hexdigest()
+            xlog.debug("Added %s host key for %s (SHA256: %s)",
+                       key.get_name(), hostname, fp_sha256)
+        except Exception:
+            pass
 
 
 class SSHTransport(CommonTransport):
@@ -165,7 +185,7 @@ class SSHTransport(CommonTransport):
         with self._exception_handler():
             if self.auto_add_unknown_hosts:
                 self.transport.set_missing_host_key_policy(
-                    paramiko.AutoAddPolicy())
+                    FIPSSafeAutoAddPolicy())
             self.transport.connect(
                 self.host,
                 port=self.port,

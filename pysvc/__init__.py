@@ -21,6 +21,21 @@ IBM SVC CLI Client Module
 """
 PYSVC_DEFAULT_LOGGER = "pysvc"
 
+# Defensive FIPS compatibility patch for Paramiko PKey.get_fingerprint
+try:
+    import hashlib
+    import paramiko.pkey
+
+    def _fips_safe_get_fingerprint(self):
+        try:
+            return hashlib.md5(self.asbytes(), usedforsecurity=False).digest()
+        except (ValueError, TypeError, AttributeError):
+            return hashlib.sha256(self.asbytes()).digest()[:16]
+
+    paramiko.pkey.PKey.get_fingerprint = _fips_safe_get_fingerprint
+except Exception:
+    pass
+
 version_tuple = (2, 0, 2)
 
 
