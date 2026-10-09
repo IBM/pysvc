@@ -23,7 +23,8 @@ class TestFipsSafeGetFingerprint(TestCase):
 
     def test_returns_md5_when_allowed(self):
         result = pysvc._fips_safe_get_fingerprint(self.key)
-        self.assertEqual(result, hashlib.md5(KEY_BYTES).digest())
+        self.assertEqual(
+            result, hashlib.md5(KEY_BYTES, usedforsecurity=False).digest())
 
     def test_md5_called_with_usedforsecurity_false(self):
         with patch.object(pysvc.hashlib, 'md5') as md5:
