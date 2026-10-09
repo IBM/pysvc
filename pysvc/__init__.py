@@ -36,7 +36,7 @@ try:
 except Exception:
     pass
 
-version_tuple = (2, 0, 2)
+version_tuple = (2, 0, 3)
 
 
 def get_version_string():
