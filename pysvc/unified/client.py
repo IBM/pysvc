@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##############################################################################
-'''Unified SSH client for IBM Spectrum Virtualize Family Storage'''
+'''Unified SSH client for IBM Storage Virtualize Family Storage'''
 
 try:
     from StringIO import StringIO
@@ -46,7 +46,7 @@ class NoSpecificationError(ce.UnableToConnectException):
 
 
 class UnifiedSSHClient(object):
-    '''Unified SSH client for IBM Spectrum Virtualize Family Storage.
+    '''Unified SSH client for IBM Storage Virtualize Family Storage.
 
     It creates callable stubs for the CLI commands of storage array.
     The stub is implemented as :py:class:`.Proxy` for

@@ -1,6 +1,6 @@
-# IBM Spectrum Virtualize Python Client
+# IBM Storage Virtualize Python Client
 
-This repository contains the IBM Command-line Interface (CLI) Python client, which establishes terminal connection with IBM Spectrum Virtualize storage systems. The Python client protocol enables full management and monitoring of these storage arrays by issuing dedicated command-line interface (CLI) commands.
+This repository contains the IBM Command-line Interface (CLI) Python client, which establishes terminal connection with IBM Storage Virtualize storage systems. The Python client protocol enables full management and monitoring of these storage arrays by issuing dedicated command-line interface (CLI) commands.
 
 ## Getting started
 

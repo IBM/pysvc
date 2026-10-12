@@ -6,7 +6,7 @@ Overview
 **pysvc** is a Python package containing classes that can talk to several
 storage arrays supported by IBM.
 
-The supported storage arrays are IBM Spectrum Virtualize Family Storage Systems.
+The supported storage arrays are IBM Storage Virtualize Family Storage Systems.
 
 :doc:`installation`
   Instructions on how to get the distribution.
