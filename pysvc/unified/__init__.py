@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##############################################################################
-'''Unified SSH client for IBM Spectrum Virtualize Family Storage
+'''Unified SSH client for IBM Storage Virtualize Family Storage
 
 Example:
 
