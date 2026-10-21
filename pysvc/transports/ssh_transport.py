@@ -196,6 +196,7 @@ class SSHTransport(CommonTransport):
                 timeout=self.timeout)
             self.connected_endpoint = self.host
             self.is_client_connected = True
+            self._configure_keepalive()
             if self.is_known_hosts_ignored is False:
                 self.transport.save_host_keys(self.svc_client_host_keys_file)
 
@@ -213,6 +214,29 @@ class SSHTransport(CommonTransport):
     def reconnect(self):
         self.disconnect()
         self.connect()
+
+    def _configure_keepalive(self):
+        """Let the kernel detect a dead peer within ~30-45s, also when idle.
+        Failures here must never break the connection itself."""
+        try:
+            ssh_transport = self.transport.get_transport()
+            if ssh_transport is None:
+                return
+            ssh_transport.set_keepalive(15)   # SSH-level keepalive, seconds
+            sock = getattr(ssh_transport, "sock", None)
+            if not isinstance(sock, socket.socket):
+                return
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+            # Linux-only options, skipped where they do not exist (e.g. macOS)
+            for name, value in (("TCP_KEEPIDLE", 15),
+                                ("TCP_KEEPINTVL", 5),
+                                ("TCP_KEEPCNT", 3),
+                                ("TCP_USER_TIMEOUT", 30000)):  # ms
+                if hasattr(socket, name):
+                    sock.setsockopt(socket.IPPROTO_TCP,
+                                    getattr(socket, name), value)
+        except Exception as ex:
+            xlog.debug("Failed to configure keepalive: %s", ex)
 
     def _close_ssh_transport(self):
         """Close the underlying paramiko transport so is_active() returns

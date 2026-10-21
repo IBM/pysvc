@@ -33,8 +33,10 @@ class StorageArrayClientException(Exception):
         if self.my_message:
             response += str(self.my_message)
         if self.original_exception is not None:
-            response += "::" + "::".join(str(ex)
-                                         for ex in self.original_exception)
+            original = self.original_exception
+            if not isinstance(original, (list, tuple)):
+                original = [original]
+            response += "::" + "::".join(str(ex) for ex in original)
 
         return response
 
