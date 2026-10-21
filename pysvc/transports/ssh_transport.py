@@ -214,6 +214,17 @@ class SSHTransport(CommonTransport):
         self.disconnect()
         self.connect()
 
+    def _close_ssh_transport(self):
+        """Close the underlying paramiko transport so is_active() returns
+        False. The SSHClient object is kept, so callers that use
+        client.transport.transport.get_transport() still get an object."""
+        try:
+            ssh_transport = self.transport.get_transport()
+            if ssh_transport is not None:
+                ssh_transport.close()
+        except Exception as ex:
+            xlog.debug("Error while closing SSH transport: %s", ex)
+
     def send_command(
             self,
             command,
@@ -223,9 +234,24 @@ class SSHTransport(CommonTransport):
             stdin_input=None):
         with self._exception_handler():
             # return self.transport.exec_command(command)
+            cmd_timeout = timeout or self.cmd_exec_timeout
             try:
-                channel = self.transport.get_transport().open_session()
-                channel.settimeout(timeout or self.cmd_exec_timeout)
+                try:
+                    channel = self.transport.get_transport().open_session(
+                        timeout=cmd_timeout)
+                except (SSHException, EOFError) as ex:
+                    # The channel could not be opened in time, or the
+                    # transport died while waiting (e.g. peer stopped
+                    # answering). Mark the transport dead so the pool
+                    # replaces it instead of reusing it.
+                    xlog.error("Failed to open SSH channel to %s: %r",
+                               self.host, ex)
+                    self._close_ssh_transport()
+                    raise UnableToConnectException(
+                        message=TransportMessages.SSH_UNABLE_TO_CONNECT(
+                            self.host),
+                        original_exception=ex)
+                channel.settimeout(cmd_timeout)
                 channel.exec_command(command)
                 stdin = channel.makefile('wb', buf_size)
                 stdout = channel.makefile('rb', buf_size)
