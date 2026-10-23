@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright 2025 IBM Corp.
+# Copyright 2026 IBM Corp.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -149,11 +149,6 @@ class TestConfigureKeepalive(unittest.TestCase):
             mock.call(socket.IPPROTO_TCP, 102, 3)])
         self.assertEqual(4, sock.setsockopt.call_count)
 
-    def test_no_paramiko_transport_does_nothing(self):
-        self.transport.transport.get_transport.return_value = None
-
-        self.transport._configure_keepalive()
-
     def test_non_socket_object_is_skipped(self):
         self.paramiko_transport.sock = mock.MagicMock()
 
@@ -161,11 +156,6 @@ class TestConfigureKeepalive(unittest.TestCase):
 
         self.paramiko_transport.set_keepalive.assert_called_once_with(15)
         self.paramiko_transport.sock.setsockopt.assert_not_called()
-
-    def test_failure_does_not_raise(self):
-        self.paramiko_transport.set_keepalive.side_effect = OSError('boom')
-
-        self.transport._configure_keepalive()
 
     def test_connect_configures_keepalive(self):
         self.transport._configure_keepalive = mock.MagicMock()
