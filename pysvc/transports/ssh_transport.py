@@ -79,7 +79,12 @@ class SSHTransport(CommonTransport):
             timeout=30,
             auto_add=True,
             cmd_timeout=30.0,
-            ignore_known_hosts=True):
+            ignore_known_hosts=True,
+            keepalive_interval=15,
+            tcp_keepidle=15,
+            tcp_keepintvl=5,
+            tcp_keepcnt=3,
+            tcp_user_timeout=30000):
         """
         Constructor for common SSH trasport class.
         pkey        : Key object used to sign and verify SSH2 data;
@@ -90,6 +95,16 @@ class SSHTransport(CommonTransport):
                       whether I should auto add it to known host list and
                       save to a local file;
         cmd_timeout : Timeout valeu for a command to return;
+        keepalive_interval : Seconds between SSH keepalive messages;
+        tcp_keepidle       : Seconds of idle time before TCP keepalive
+                             probes start;
+        tcp_keepintvl      : Seconds between TCP keepalive probes;
+        tcp_keepcnt        : Unanswered TCP keepalive probes before the
+                             connection is closed;
+        tcp_user_timeout   : Milliseconds that sent data may stay
+                             unacknowledged before the connection is closed.
+        A keepalive value of None leaves that setting untouched. The TCP
+        options are Linux-only and are skipped where they do not exist.
         """
         super(SSHTransport, self).__init__()
         self.host = host
@@ -100,6 +115,11 @@ class SSHTransport(CommonTransport):
         self.port = port
         self.timeout = timeout
         self.cmd_exec_timeout = cmd_timeout
+        self.keepalive_interval = keepalive_interval
+        self.tcp_keepidle = tcp_keepidle
+        self.tcp_keepintvl = tcp_keepintvl
+        self.tcp_keepcnt = tcp_keepcnt
+        self.tcp_user_timeout = tcp_user_timeout
         self.connected_endpoint = None
         self.auto_add_unknown_hosts = auto_add
         self.transport = SSHClient()
@@ -196,6 +216,7 @@ class SSHTransport(CommonTransport):
                 timeout=self.timeout)
             self.connected_endpoint = self.host
             self.is_client_connected = True
+            self._configure_keepalive()
             if self.is_known_hosts_ignored is False:
                 self.transport.save_host_keys(self.svc_client_host_keys_file)
 
@@ -214,6 +235,55 @@ class SSHTransport(CommonTransport):
         self.disconnect()
         self.connect()
 
+    def _configure_keepalive(self):
+        """Let the kernel detect a dead peer, also when idle (within ~30-45s
+        with the default values).
+        Failures here must never break the connection itself, and a failure
+        to set one option must not skip the others."""
+        try:
+            ssh_transport = self.transport.get_transport()
+        except Exception as ex:
+            xlog.debug("Failed to get SSH transport for keepalive: %s", ex)
+            return
+        if ssh_transport is None:
+            return
+        if self.keepalive_interval is not None:
+            try:
+                # SSH-level keepalive, seconds
+                ssh_transport.set_keepalive(self.keepalive_interval)
+            except Exception as ex:
+                xlog.debug("Failed to set SSH keepalive: %s", ex)
+        sock = getattr(ssh_transport, "sock", None)
+        if not isinstance(sock, socket.socket):
+            return
+        try:
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+        except Exception as ex:
+            xlog.debug("Failed to set SO_KEEPALIVE: %s", ex)
+        # Linux-only options, skipped where they do not exist (e.g. macOS)
+        for name, value in (("TCP_KEEPIDLE", self.tcp_keepidle),
+                            ("TCP_KEEPINTVL", self.tcp_keepintvl),
+                            ("TCP_KEEPCNT", self.tcp_keepcnt),
+                            ("TCP_USER_TIMEOUT", self.tcp_user_timeout)):
+            if value is None or not hasattr(socket, name):
+                continue
+            try:
+                sock.setsockopt(socket.IPPROTO_TCP, getattr(socket, name),
+                                value)
+            except Exception as ex:
+                xlog.debug("Failed to set %s: %s", name, ex)
+
+    def _close_ssh_transport(self):
+        """Close the underlying paramiko transport so is_active() returns
+        False. The SSHClient object is kept, so callers that use
+        client.transport.transport.get_transport() still get an object."""
+        try:
+            ssh_transport = self.transport.get_transport()
+            if ssh_transport is not None:
+                ssh_transport.close()
+        except Exception as ex:
+            xlog.debug("Error while closing SSH transport: %s", ex)
+
     def send_command(
             self,
             command,
@@ -223,9 +293,25 @@ class SSHTransport(CommonTransport):
             stdin_input=None):
         with self._exception_handler():
             # return self.transport.exec_command(command)
+            cmd_timeout = timeout or self.cmd_exec_timeout
+            channel = None
             try:
-                channel = self.transport.get_transport().open_session()
-                channel.settimeout(timeout or self.cmd_exec_timeout)
+                try:
+                    channel = self.transport.get_transport().open_session(
+                        timeout=cmd_timeout)
+                except (SSHException, EOFError) as ex:
+                    # The channel could not be opened in time, or the
+                    # transport died while waiting (e.g. peer stopped
+                    # answering). Mark the transport dead so the pool
+                    # replaces it instead of reusing it.
+                    xlog.error("Failed to open SSH channel to %s: %r",
+                               self.host, ex)
+                    self._close_ssh_transport()
+                    raise UnableToConnectException(
+                        message=TransportMessages.SSH_UNABLE_TO_CONNECT(
+                            self.host),
+                        original_exception=[ex])
+                channel.settimeout(cmd_timeout)
                 channel.exec_command(command)
                 stdin = channel.makefile('wb', buf_size)
                 stdout = channel.makefile('rb', buf_size)
@@ -246,3 +332,10 @@ class SSHTransport(CommonTransport):
                 raise ConnectionTimedoutException(
                     message=TransportMessages.SSH_CON_TIMED_OUT_WHEN_EXEC_CMD,
                     original_exception=ex)
+            finally:
+                # Do not rely on garbage collection to release the channel.
+                if channel is not None:
+                    try:
+                        channel.close()
+                    except Exception as ex:
+                        xlog.debug("Error while closing SSH channel: %s", ex)
