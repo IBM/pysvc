@@ -289,6 +289,22 @@ def connect(address, **kwargs):
     :param cmd_timeout: (optional) Response timeout for each sending command
                                    in seconds, it is 60.0 by default.
     :type cmd_timeout: float
+    :param keepalive_interval: (optional) Seconds between SSH keepalive
+                                   messages, it is 15 by default.
+    :type keepalive_interval: int
+    :param tcp_keepidle: (optional) Seconds of idle time before TCP keepalive
+                                   probes start, it is 15 by default.
+    :type tcp_keepidle: int
+    :param tcp_keepintvl: (optional) Seconds between TCP keepalive probes,
+                                   it is 5 by default.
+    :type tcp_keepintvl: int
+    :param tcp_keepcnt: (optional) Unanswered TCP keepalive probes before the
+                                   connection is closed, it is 3 by default.
+    :type tcp_keepcnt: int
+    :param tcp_user_timeout: (optional) Milliseconds that sent data may stay
+                                   unacknowledged before the connection is
+                                   closed, it is 30000 by default.
+    :type tcp_user_timeout: int
     :param device_type: (optional) The device type of storage array, e.g.
                                    "svc", "storwize", None.
     :type device_type: str
@@ -326,7 +342,12 @@ def connect(address, **kwargs):
             30),
         cmd_timeout=g(
             'cmd_timeout',
-            60.0))
+            60.0),
+        keepalive_interval=g('keepalive_interval', 15),
+        tcp_keepidle=g('tcp_keepidle', 15),
+        tcp_keepintvl=g('tcp_keepintvl', 5),
+        tcp_keepcnt=g('tcp_keepcnt', 3),
+        tcp_user_timeout=g('tcp_user_timeout', 30000))
     conn = UnifiedSSHClient()
     try:
         trans.connect()
